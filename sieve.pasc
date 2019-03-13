@@ -1,0 +1,70 @@
+
+(*
+ * sieve.pas:   compute primes using Sieve of Eratosthenes
+ *
+ * Paul Heckbert	28 Aug 87
+ *
+ * Compute primes by crossing out multiples of successively larger primes in
+ * a boolean array.  The array stores a[k]=1 if k ; composite (not prime),
+ * and a[k]=0 if k ; not div;ible by the div;ors considered so far.
+ *
+ * Rewritten in CAP by Evelyn Duesterwald 9/10/89
+ * Rewritten in PASC by C-N. Fiechter 9/10/91
+ *)
+
+program sieve is
+
+constant
+
+   n = 1000;
+
+var
+
+   a:     array(2..n) of integer;	(* prime candidates array *)
+   i, j:  integer;
+   count: integer;	 (* number of numbers on the current line *)
+
+
+(* integer square root routine *)
+
+function sqrt(a: integer) return integer is
+var
+   x: integer;
+begin
+    i:=i+1;
+    x := a;
+    while x > a div x loop  x := (x+a div x) div 2 endloop;
+    return x
+end ;
+
+
+begin	(* main program *)
+
+    (* make the array *)
+    for i := 2 to n loop a(i) := 0 endloop;
+    for i := 2 to sqrt(n) loop
+	if a(i) = 0 then	(* i is prime, so eliminate its multiples *)
+	    j := i+i;
+	    while j <= n loop
+		a(j) := 1;
+		j    := j+i;
+	    endloop
+        endif
+    endloop;
+
+    write('\n');
+    count := 0;
+    for i := 2 to n loop
+	if a(i) = 0 then
+	    write(i);
+	    count := count+1;
+	    if count = 20 then
+		write('\n');
+		count := 0
+            endif
+        else
+	    write(' ');
+        endif
+   endloop;
+   write('\n')
+end.
