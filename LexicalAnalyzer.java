@@ -80,40 +80,158 @@ public class LexicalAnalyzer {
         System.out.print(str);
     }
 
-    public void Analyze() {
+    public Pair<Vector<Pair<String, String>>, Vector<String>> Analyze() {
         tokenList = new Vector<Pair<String, String>>();
         errorList = new Vector<String>();
         myTokenMap mt = new myTokenMap();
         int tokenCounter = 0;
 
         try {
-            String content = new Scanner(this.sourceFile).useDelimiter("\\Z").next();
-            content = content.replaceAll("[a-zA-Z0-9];", ";");
-            System.out.println(content);
+            Scanner sc = new Scanner(this.sourceFile);
+            String content = "";
+            while (sc.hasNextLine()) {
+                content = content + sc.nextLine() + " * ";
+            }
+
+            // Pre-process raw string
+            content = content.replaceAll(";", " ; ");
+            content = content.replaceAll(":=", " := ");
+            content = content.replaceAll("\\+", " + ");
+            content = content.replaceAll("-", " - ");
+            content = content.replaceAll("\\*", " * ");
+            content = content.replaceAll("/", " / ");
+            content = content.replaceAll(":[^=]", " : ");
+            content = content.replaceAll("\\(", " ( ");
+            content = content.replaceAll("\\)", " ) ");
+            content = content.replaceAll("<[^=]", " < ");
+            content = content.replaceAll(">[^=]", " > ");
+            content = content.replaceAll("<=", " <= ");
+            content = content.replaceAll(">=", " >= ");
+            content = content.replaceAll(",", " , ");
+            content = content.replaceAll("'", " ' ");
+            content = content.replaceAll("\\.{2}", " .. ");
+            content = content.replaceAll("\\([\\s]{1,}\\*", "(*");
+            content = content.replaceAll("\\*[\\s]{1,}\\)", "*)");
+
+            // System.out.println(content);
+
             StringTokenizer st = new StringTokenizer(content);
 
-
             int t;
+            int columnCounter = 0;
+            int rowCounter = 0;
             boolean isCommentValid = false;
+            boolean isStringConstantOver = false;
+            int isSingleQuote = 0;
+            String chAndStr = "";
+            String previousToken = "";
 
+            while (st.hasMoreTokens()) {
+                String currentToken = st.nextToken();
+                if (currentToken.equals("*")) {
+                    rowCounter++;
+                    columnCounter = 0;
+                    continue;
+                }
+
+                columnCounter += currentToken.length();
+
+                if (currentToken.equals("(*")) {
+                    isCommentValid = true;
+                    continue;
+                }
+
+                if (currentToken.equals("*)")) {
+                    isCommentValid = false;
+                    continue;
+                }
+
+                if (isCommentValid == true) {
+                    continue;
+                }
+
+                if (currentToken.equals("'")) {
+                    if (isSingleQuote == 1) {
+                        // System.out.println(chAndStr.length());
+                        if (chAndStr.length() == 1) {
+                            tokenList.add(new Pair<String, String>(chAndStr, "CCONST" + Integer.toString(++tokenCounter)));
+                        } else {
+                            if (chAndStr.length() > 10) {
+                                errorList.add(new String("[ERROR]" + "[" + Integer.toString(rowCounter)
+                                    + "," + Integer.toString(columnCounter) + "]: String contanst over the line boundary."));
+                            }
+
+                            tokenList.add(new Pair<String, String>(chAndStr, "SCONST" + Integer.toString(++tokenCounter)));
+                        }
+
+                        chAndStr = "";
+                    }
+
+                    isSingleQuote = 1 - isSingleQuote;
+                    continue;
+                }
+
+                if (isSingleQuote == 1) {
+                    chAndStr += currentToken;
+                    continue;
+                }
+
+                if (currentToken.matches("^[0-9]+$") == true) {
+                    tokenList.add(new Pair<String, String>(currentToken, "ICONST" + Integer.toString(++tokenCounter)));
+                    continue;
+                }
+
+                String parsed = mt.get(currentToken);
+
+                if (parsed != null) {
+                    parsed = parsed.substring(0, parsed.length() - 6);
+                    parsed += Integer.toString(tokenCounter++);
+                    tokenList.add(new Pair<String, String>(currentToken, parsed));
+                } else {
+                    if (previousToken.equals("program")
+                        || previousToken.equals("var")
+                        || previousToken.equals(";")
+                        || previousToken.equals("constant")
+                        || previousToken.equals("begin")) {
+
+                        tokenList.add(new Pair<String, String>(currentToken, "ID" + Integer.toString(++tokenCounter)));
+                    }
+                }
+
+                previousToken = currentToken;
+            }
 
             if (isCommentValid == true) {
                 errorList.add(new String("[ERROR]: Comment are never terminated"));
-            }
-
-            for(Pair<String, String> i: tokenList){
-                System.out.println(i);
             }
         } catch (IOException e) {
             e.printStackTrace();
         } finally {
             // Success
         }
+
+        return new Pair<Vector<Pair<String, String>>, Vector<String>>(tokenList, errorList);
     }
 
     public static void main(String[] args) {
         LexicalAnalyzer lAnalyzer = new LexicalAnalyzer(new File("sieve.pasc"));
-        lAnalyzer.Analyze();
+        Pair<Vector<Pair<String, String>>, Vector<String>> returned = lAnalyzer.Analyze();
+        Vector<Pair<String, String>> vecToken = returned.first;
+        Vector<String> vecError = returned.second;
+
+        try {
+            BufferedWriter bw = new BufferedWriter(new FileWriter("out.txt"));
+            for (Pair<String, String> p : vecToken) {
+                bw.write(p + "\n");
+            }
+            bw.close();
+
+            for (String str : vecError) {
+                System.out.println(str);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }
 

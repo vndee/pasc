@@ -1,4 +1,3 @@
-
 (*
  * sieve.pas:   compute primes using Sieve of Eratosthenes
  *
@@ -17,6 +16,8 @@ program sieve is
 constant
 
    n = 1000;
+   ch = 'A';
+   str = 'Chuofslakdddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddjjfdlksaaaaaaaaaaaaaaaaaaaaaaaaa;lkjflsdkkkkkkkkkkkkkkkki';
 
 var
 
