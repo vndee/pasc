@@ -1,0 +1,15 @@
+PROGRAM hello IS
+
+(* ab cdefg
+ *)
+
+BEGIN
+    
+    write('hello world\n')
+    ~
+END.
+'skdajfaskdjf
+'askdjflsakjdf\\\\\\\\\'kdjflkasjdflk\\'
+'askdjfaskdf\\\'kasjdfkjasdfk\'aksdjf'
+'aaaaa\'aaaaa
+(* asdkjfalsj

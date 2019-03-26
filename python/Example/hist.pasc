@@ -1,0 +1,203 @@
+(*
+ * hist.pas: make histogram of tokens from input stream
+ *
+ * Paul Heckbert	28 Aug 87	test program for CS164
+ *
+ * Rewritten in CAP  by Evelyn Duesterwald, 9/7/90
+ * Rewritten in PASC by C-N. Fiechter       9/7/91
+ *)
+
+program hist is
+
+constant 
+     ntokmax = 100;
+     strmax  = 256;
+     EOS     = 0;
+
+type
+     string = array(1..strmax) of char;
+     ttok   = record 
+		    count: integer;	(* repeat count *)
+		    str: string		(* token name *)
+	      endrec;
+var
+   
+     ntok, i: integer;
+     str:     string;
+     c:       char;
+     tok:     array(1..ntokmax) of ttok;
+
+
+
+(*-------------------- simple string routines --------------------*)
+
+
+(* strnull: make a null string *)
+
+procedure strnull(var s: string) is 
+begin
+    s(1) := chr(EOS);		
+end ;
+
+
+(* streq: are two strings equal? *)
+
+function streq(a: string; b:string) return integer is
+var i: integer;
+begin
+    for i := 1 to strmax loop
+	if    a(i) <> b(i)    then return 0 
+	elsif a(i) = chr(EOS) then return 1
+	endif
+    endloop;
+    return 0		(* ran off end of string *)
+end ;
+
+
+(* strappend: append char c to the end of string s *)
+
+procedure strappend(var s: string; c: char) is 
+var   i: integer;
+begin
+   for i := 1 to strmax-1 loop
+	if s(i) = chr(EOS) then
+	    s(i) := c;
+	    s(i+1) := chr(EOS);
+	    return;
+        endif
+    endloop;
+    write('\n\n !!! Strappend: ran off end of string \n\n');
+end ;
+
+(* iswhite: is c a whitespace char? *)
+
+function iswhite(c: char) return integer is
+begin	
+    if (c=' ') or (c='\t') or (c='\n') then 
+	return 1
+    else
+	return 0
+    endif
+end ;
+
+(* isalpha: is c an alphabetic char? *)
+
+function isalpha(c: char) return integer is 
+begin	
+    if (c>='a') and (c<='z')  or  (c>='A') and (c<='Z') then
+	return 1
+    else
+	return 0
+    endif
+end ;
+
+(* isdigit: is c a digit char? *)
+
+function isdigit(c: char) return integer  is
+begin	
+    if (c>='0') and (c<='9') then 
+	return 1
+    else
+	return 0
+    endif
+end ;
+
+(* isalnum: is c an alphanumeric char? *)
+
+function isalnum(c: char) return integer is 
+begin	
+    if (isalpha(c)=1) or (isdigit(c)=1) 
+    then 
+	return 1
+    else
+	return 0
+    endif
+end ;
+
+(*----------------------------------------------------------------------*)
+
+
+(* lookup: return index of a token given its name *)
+
+function lookup(str: string) return integer is
+var  i: integer;
+begin
+
+    for i := 1 to ntok loop
+	if streq(tok(i).str, str) = 1 then return i endif
+    endloop;
+
+    (* not here, add it *)
+
+    if ntok >= ntokmax then
+	write('\n\n!!! Too many tokens for thisi little program \n\n')
+    endif;
+
+    i := ntok;
+    ntok := ntok+1;
+    tok(i).count := 0;
+    tok(i).str := str;
+    return i
+end ;
+
+(* gettoken: simple scanner, breaks input into tokens *)
+(*           c must contain the next char	      *)
+(*           str will then contain the next token and *)
+(*           c will be the char following the token   *)
+
+procedure gettoken(var str: string) is
+begin
+    strnull(str);
+
+    (* skip blanks *)
+
+    while iswhite(c) = 1 loop
+	read(c)
+    endloop;
+
+    (* build token *)
+
+    if isalpha(c) = 1 then
+	repeat
+	  strappend(str, c);
+	  read(c)	
+	until isalnum(c) = 0;
+    elsif isdigit(c) = 1 then
+	repeat	
+	  strappend(str, c);
+          read(c)
+	until isdigit(c) = 0;
+    else
+        strappend(str, c);
+	read(c)
+    endif;
+end;
+
+
+begin	(* main program *)
+
+    (* preread first char *)
+
+    read(c);
+
+    (* scan input for tokens, counting frequencies of each *)
+
+    ntok := 0;
+    write('\n');
+    while not eof loop
+	gettoken(str);
+	write(str,'\n');
+	i := lookup(str);
+	tok(i).count := tok(i).count+1;
+    endloop;
+
+    (* print histogram *)
+
+    write('\n\n HISTOGRAM OF TOKEN : \n\n');
+    for i := 1 to ntok loop
+	write(tok(i).count,'  ');
+	write(tok(i).str,'\n');
+    endloop;
+    write('\n')
+end .
+

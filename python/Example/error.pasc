@@ -1,0 +1,90 @@
+(*
+ * Semantic Alanyzer Errors
+ * Nov-20-92
+ *)
+
+program	SemanError is
+
+constant
+	cona = 'a';
+	conb = 'b';
+	con1 = 1;
+	con9 = 9;
+	ten  = 10;
+type
+	rec1  = record
+		    x: integer;
+		    y: char;
+		    x: string	(* ERROR:name redeclared *)
+		endrec;
+
+	cona  = record	(* ERROR: name redeclared *)
+		    x,y,z: array(con1..con9) of integer
+		endrec;
+	type2D = array (1..2, 3..6) of integer;
+var
+	x,y,z: integer;
+	key: char;
+	one, two, three: integer;
+	con9: integer;	(* ERROR: name redeclared *)
+	str:  string;
+	arr:  array(1..5) of integer;
+	var1: array(1..5) of record
+				x,y,z: integer
+			     endrec;
+	multi: array(1..5, 2..6) of array (2..4) of type2D;
+	cell: type2D;
+	dims: array(one..5, two..6) of string;(* ERROR: not constant subrange *)
+
+procedure P1(index:integer) is
+var
+    index: char;	(* ERROR:name redeclared *)
+begin
+end;
+
+function Conb(index:integer) return char is (* ERROR:name redeclared *)
+begin
+end;
+
+procedure P2(index:integer) is
+constant
+	hundred = 100;
+var
+    ghost: type2D;
+begin
+	arr(index) := hundred;
+	index := index * 2;
+	conbine := index;   (* ERROR: undecleared ID *)
+	ten := 100 div 10;  (* ERROR: assigned constant *)
+end;
+
+procedure double(in:integer; var out:integer) is
+begin
+	out := in*2;
+end;
+
+function F1(index:integer; var out:char; x,y,z:integer) return char is
+begin
+end;
+
+begin
+	index := 0;	(* ERROR: undecleared *)
+	x := 1;
+	y := hundred;	(* ERROR: undecleared *)
+	P1(x);
+	double(2, y);
+
+	multi(1,2)(3)(4,5) := 6;
+	multi(1,2,3,4) := arr(1);       (* ERROR: incorrect # of indices *)
+	multi(1,2,3,4,5) := arr(1,2);   (* ERROR: incorrect # of indices *)
+
+	var1(1).x := 100;
+	var1(1).xy := 100;		(* ERROR: incorrect field usage *)
+
+	if( ten ) then three := three+1 endif;
+	if( one ) then three := three+1 endif;
+	for ten:=10 downto 1 loop	(* ERROR: assigned constant *)
+	    z := z + 1
+	endloop
+end.
+
