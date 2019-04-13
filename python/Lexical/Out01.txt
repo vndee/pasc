@@ -1,5 +1,0 @@
-var VARnumber 1 1 1 3
-x IDnumber 1 1 5 5
-, COMMMAnumber 1 1 6 6
-y IDnumber 1 1 8 8
-; SEMInumber 1 1 9 9

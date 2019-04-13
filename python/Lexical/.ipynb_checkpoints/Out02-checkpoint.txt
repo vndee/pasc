@@ -1,4 +1,0 @@
-y IDnumber 1 1 1 1
-:= COLEQnumber 1 1 3 4
-31411 ICONSTnumber 1 1 6 10
-; SEMInumber 1 1 11 11

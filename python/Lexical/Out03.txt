@@ -1,5 +1,0 @@
-x IDnumber 1 1 2 2
-:= COLEQnumber 1 1 4 5
-y IDnumber 1 1 7 7
-+ PLUSnumber 1 1 9 9
-56 ICONSTnumber 1 1 11 12
