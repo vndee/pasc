@@ -1,0 +1,10 @@
+if IFnumber 1 1 1 2
+n IDnumber 1 1 4 4
+<= LEnumber 1 1 6 7
+1 ICONSTnumber 1 1 9 9
+then THENnumber 1 1 11 14
+fibResult 2 2 5 13
+:= COLEQnumber 2 2 15 16
+n IDnumber 2 2 18 18
+; SEMInumber 2 2 19 19
+endif ENDIFnumber 3 3 1 5
