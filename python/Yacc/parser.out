@@ -1,0 +1,2825 @@
+Created by PLY version 3.11 (http://www.dabeaz.com/ply)
+
+Unused terminals:
+
+    ARRAY
+    OF
+    RECORD
+    RETURN
+    TYPE
+
+Grammar
+
+Rule 0     S' -> program
+Rule 1     program -> header SEMI block DOT
+Rule 2     program -> statement_sequence
+Rule 3     header -> PROGRAM identifier
+Rule 4     block -> variable_declaration_part procedure_or_function statement_part
+Rule 5     variable_declaration_part -> VAR variable_declaration_list
+Rule 6     variable_declaration_part -> <empty>
+Rule 7     variable_declaration_list -> variable_declaration variable_declaration_list
+Rule 8     variable_declaration_list -> variable_declaration
+Rule 9     variable_declaration -> variable_identifier COLON type SEMI
+Rule 10    variable_identifier -> identifier COMMA variable_identifier
+Rule 11    variable_identifier -> identifier
+Rule 12    procedure_or_function -> proc_or_func_declaration SEMI procedure_or_function
+Rule 13    procedure_or_function -> <empty>
+Rule 14    proc_or_func_declaration -> procedure_declaration
+Rule 15    proc_or_func_declaration -> function_declaration
+Rule 16    procedure_declaration -> procedure_heading SEMI block
+Rule 17    procedure_heading -> PROCEDURE identifier
+Rule 18    procedure_heading -> PROCEDURE identifier LPAREN parameter_list RPAREN
+Rule 19    function_declaration -> function_heading SEMI block
+Rule 20    function_heading -> FUNCTION type
+Rule 21    function_heading -> FUNCTION identifier COLON type
+Rule 22    function_heading -> FUNCTION identifier LPAREN parameter_list RPAREN COLON type
+Rule 23    parameter_list -> parameter COMMA parameter_list
+Rule 24    parameter_list -> parameter
+Rule 25    parameter -> identifier COLON type
+Rule 26    type -> STRING
+Rule 27    type -> INTEGER
+Rule 28    type -> CHAR
+Rule 29    statement_part -> BEGIN statement_sequence END
+Rule 30    statement_sequence -> statement SEMI statement_sequence
+Rule 31    statement_sequence -> statement
+Rule 32    statement -> assignment_statement
+Rule 33    statement -> statement_part
+Rule 34    statement -> if_statement
+Rule 35    statement -> while_statement
+Rule 36    statement -> repeat_statement
+Rule 37    statement -> for_statement
+Rule 38    statement -> procedure_or_function_call
+Rule 39    statement -> <empty>
+Rule 40    procedure_or_function_call -> identifier LPAREN param_list RPAREN
+Rule 41    procedure_or_function_call -> identifier
+Rule 42    param_list -> param_list COMMA param
+Rule 43    param_list -> param
+Rule 44    param -> expression
+Rule 45    if_statement -> IF expression THEN statement ELSE statement ENDIF
+Rule 46    if_statement -> IF expression THEN statement ELSIF statement ENDIF
+Rule 47    if_statement -> IF expression THEN statement ENDIF
+Rule 48    while_statement -> WHILE expression LOOP statement ENDLOOP
+Rule 49    repeat_statement -> REPEAT statement UNTIL expression
+Rule 50    for_statement -> FOR assignment_statement TO expression LOOP statement ENDLOOP
+Rule 51    for_statement -> FOR assignment_statement DOWNTO expression LOOP statement ENDLOOP
+Rule 52    assignment_statement -> identifier COLEQ expression
+Rule 53    expression -> expression and_or expression_m
+Rule 54    expression -> expression_m
+Rule 55    expression_m -> expression_s
+Rule 56    expression_m -> expression_m sign expression_s
+Rule 57    expression_s -> element
+Rule 58    expression_s -> expression_s psign element
+Rule 59    and_or -> AND
+Rule 60    and_or -> OR
+Rule 61    psign -> TIMES
+Rule 62    psign -> DIV
+Rule 63    sign -> PLUS
+Rule 64    sign -> MINUS
+Rule 65    sign -> EQ
+Rule 66    sign -> NE
+Rule 67    sign -> LT
+Rule 68    sign -> LE
+Rule 69    sign -> GT
+Rule 70    sign -> GE
+Rule 71    element -> identifier
+Rule 72    element -> integer
+Rule 73    element -> string
+Rule 74    element -> char
+Rule 75    element -> LPAREN expression RPAREN
+Rule 76    element -> NOT element
+Rule 77    identifier -> ID
+Rule 78    integer -> ICONST
+Rule 79    string -> SCONST
+Rule 80    char -> CCONST
+
+Terminals, with rules where they appear
+
+AND                  : 59
+ARRAY                : 
+BEGIN                : 29
+CCONST               : 80
+CHAR                 : 28
+COLEQ                : 52
+COLON                : 9 21 22 25
+COMMA                : 10 23 42
+DIV                  : 62
+DOT                  : 1
+DOWNTO               : 51
+ELSE                 : 45
+ELSIF                : 46
+END                  : 29
+ENDIF                : 45 46 47
+ENDLOOP              : 48 50 51
+EQ                   : 65
+FOR                  : 50 51
+FUNCTION             : 20 21 22
+GE                   : 70
+GT                   : 69
+ICONST               : 78
+ID                   : 77
+IF                   : 45 46 47
+INTEGER              : 27
+LE                   : 68
+LOOP                 : 48 50 51
+LPAREN               : 18 22 40 75
+LT                   : 67
+MINUS                : 64
+NE                   : 66
+NOT                  : 76
+OF                   : 
+OR                   : 60
+PLUS                 : 63
+PROCEDURE            : 17 18
+PROGRAM              : 3
+RECORD               : 
+REPEAT               : 49
+RETURN               : 
+RPAREN               : 18 22 40 75
+SCONST               : 79
+SEMI                 : 1 9 12 16 19 30
+STRING               : 26
+THEN                 : 45 46 47
+TIMES                : 61
+TO                   : 50
+TYPE                 : 
+UNTIL                : 49
+VAR                  : 5
+WHILE                : 48
+error                : 
+
+Nonterminals, with rules where they appear
+
+and_or               : 53
+assignment_statement : 32 50 51
+block                : 1 16 19
+char                 : 74
+element              : 57 58 76
+expression           : 44 45 46 47 48 49 50 51 52 53 75
+expression_m         : 53 54 56
+expression_s         : 55 56 58
+for_statement        : 37
+function_declaration : 15
+function_heading     : 19
+header               : 1
+identifier           : 3 10 11 17 18 21 22 25 40 41 52 71
+if_statement         : 34
+integer              : 72
+param                : 42 43
+param_list           : 40 42
+parameter            : 23 24
+parameter_list       : 18 22 23
+proc_or_func_declaration : 12
+procedure_declaration : 14
+procedure_heading    : 16
+procedure_or_function : 4 12
+procedure_or_function_call : 38
+program              : 0
+psign                : 58
+repeat_statement     : 36
+sign                 : 56
+statement            : 30 31 45 45 46 46 47 48 49 50 51
+statement_part       : 4 33
+statement_sequence   : 2 29 30
+string               : 73
+type                 : 9 20 21 22 25
+variable_declaration : 7 8
+variable_declaration_list : 5 7
+variable_declaration_part : 4
+variable_identifier  : 9 10
+while_statement      : 35
+
+Parsing method: LALR
+
+state 0
+
+    (0) S' -> . program
+    (1) program -> . header SEMI block DOT
+    (2) program -> . statement_sequence
+    (3) header -> . PROGRAM identifier
+    (30) statement_sequence -> . statement SEMI statement_sequence
+    (31) statement_sequence -> . statement
+    (32) statement -> . assignment_statement
+    (33) statement -> . statement_part
+    (34) statement -> . if_statement
+    (35) statement -> . while_statement
+    (36) statement -> . repeat_statement
+    (37) statement -> . for_statement
+    (38) statement -> . procedure_or_function_call
+    (39) statement -> .
+    (52) assignment_statement -> . identifier COLEQ expression
+    (29) statement_part -> . BEGIN statement_sequence END
+    (45) if_statement -> . IF expression THEN statement ELSE statement ENDIF
+    (46) if_statement -> . IF expression THEN statement ELSIF statement ENDIF
+    (47) if_statement -> . IF expression THEN statement ENDIF
+    (48) while_statement -> . WHILE expression LOOP statement ENDLOOP
+    (49) repeat_statement -> . REPEAT statement UNTIL expression
+    (50) for_statement -> . FOR assignment_statement TO expression LOOP statement ENDLOOP
+    (51) for_statement -> . FOR assignment_statement DOWNTO expression LOOP statement ENDLOOP
+    (40) procedure_or_function_call -> . identifier LPAREN param_list RPAREN
+    (41) procedure_or_function_call -> . identifier
+    (77) identifier -> . ID
+
+    PROGRAM         shift and go to state 4
+    SEMI            reduce using rule 39 (statement -> .)
+    $end            reduce using rule 39 (statement -> .)
+    BEGIN           shift and go to state 14
+    IF              shift and go to state 15
+    WHILE           shift and go to state 16
+    REPEAT          shift and go to state 17
+    FOR             shift and go to state 18
+    ID              shift and go to state 19
+
+    program                        shift and go to state 1
+    header                         shift and go to state 2
+    statement_sequence             shift and go to state 3
+    identifier                     shift and go to state 5
+    statement                      shift and go to state 6
+    assignment_statement           shift and go to state 7
+    statement_part                 shift and go to state 8
+    if_statement                   shift and go to state 9
+    while_statement                shift and go to state 10
+    repeat_statement               shift and go to state 11
+    for_statement                  shift and go to state 12
+    procedure_or_function_call     shift and go to state 13
+
+state 1
+
+    (0) S' -> program .
+
+
+
+state 2
+
+    (1) program -> header . SEMI block DOT
+
+    SEMI            shift and go to state 20
+
+
+state 3
+
+    (2) program -> statement_sequence .
+
+    $end            reduce using rule 2 (program -> statement_sequence .)
+
+
+state 4
+
+    (3) header -> PROGRAM . identifier
+    (77) identifier -> . ID
+
+    ID              shift and go to state 19
+
+    identifier                     shift and go to state 21
+
+state 5
+
+    (52) assignment_statement -> identifier . COLEQ expression
+    (40) procedure_or_function_call -> identifier . LPAREN param_list RPAREN
+    (41) procedure_or_function_call -> identifier .
+
+    COLEQ           shift and go to state 22
+    LPAREN          shift and go to state 23
+    SEMI            reduce using rule 41 (procedure_or_function_call -> identifier .)
+    $end            reduce using rule 41 (procedure_or_function_call -> identifier .)
+    END             reduce using rule 41 (procedure_or_function_call -> identifier .)
+    UNTIL           reduce using rule 41 (procedure_or_function_call -> identifier .)
+    ELSE            reduce using rule 41 (procedure_or_function_call -> identifier .)
+    ELSIF           reduce using rule 41 (procedure_or_function_call -> identifier .)
+    ENDIF           reduce using rule 41 (procedure_or_function_call -> identifier .)
+    ENDLOOP         reduce using rule 41 (procedure_or_function_call -> identifier .)
+
+
+state 6
+
+    (30) statement_sequence -> statement . SEMI statement_sequence
+    (31) statement_sequence -> statement .
+
+    SEMI            shift and go to state 24
+    $end            reduce using rule 31 (statement_sequence -> statement .)
+    END             reduce using rule 31 (statement_sequence -> statement .)
+
+
+state 7
+
+    (32) statement -> assignment_statement .
+
+    SEMI            reduce using rule 32 (statement -> assignment_statement .)
+    $end            reduce using rule 32 (statement -> assignment_statement .)
+    END             reduce using rule 32 (statement -> assignment_statement .)
+    UNTIL           reduce using rule 32 (statement -> assignment_statement .)
+    ELSE            reduce using rule 32 (statement -> assignment_statement .)
+    ELSIF           reduce using rule 32 (statement -> assignment_statement .)
+    ENDIF           reduce using rule 32 (statement -> assignment_statement .)
+    ENDLOOP         reduce using rule 32 (statement -> assignment_statement .)
+
+
+state 8
+
+    (33) statement -> statement_part .
+
+    SEMI            reduce using rule 33 (statement -> statement_part .)
+    $end            reduce using rule 33 (statement -> statement_part .)
+    END             reduce using rule 33 (statement -> statement_part .)
+    UNTIL           reduce using rule 33 (statement -> statement_part .)
+    ELSE            reduce using rule 33 (statement -> statement_part .)
+    ELSIF           reduce using rule 33 (statement -> statement_part .)
+    ENDIF           reduce using rule 33 (statement -> statement_part .)
+    ENDLOOP         reduce using rule 33 (statement -> statement_part .)
+
+
+state 9
+
+    (34) statement -> if_statement .
+
+    SEMI            reduce using rule 34 (statement -> if_statement .)
+    $end            reduce using rule 34 (statement -> if_statement .)
+    END             reduce using rule 34 (statement -> if_statement .)
+    UNTIL           reduce using rule 34 (statement -> if_statement .)
+    ELSE            reduce using rule 34 (statement -> if_statement .)
+    ELSIF           reduce using rule 34 (statement -> if_statement .)
+    ENDIF           reduce using rule 34 (statement -> if_statement .)
+    ENDLOOP         reduce using rule 34 (statement -> if_statement .)
+
+
+state 10
+
+    (35) statement -> while_statement .
+
+    SEMI            reduce using rule 35 (statement -> while_statement .)
+    $end            reduce using rule 35 (statement -> while_statement .)
+    END             reduce using rule 35 (statement -> while_statement .)
+    UNTIL           reduce using rule 35 (statement -> while_statement .)
+    ELSE            reduce using rule 35 (statement -> while_statement .)
+    ELSIF           reduce using rule 35 (statement -> while_statement .)
+    ENDIF           reduce using rule 35 (statement -> while_statement .)
+    ENDLOOP         reduce using rule 35 (statement -> while_statement .)
+
+
+state 11
+
+    (36) statement -> repeat_statement .
+
+    SEMI            reduce using rule 36 (statement -> repeat_statement .)
+    $end            reduce using rule 36 (statement -> repeat_statement .)
+    END             reduce using rule 36 (statement -> repeat_statement .)
+    UNTIL           reduce using rule 36 (statement -> repeat_statement .)
+    ELSE            reduce using rule 36 (statement -> repeat_statement .)
+    ELSIF           reduce using rule 36 (statement -> repeat_statement .)
+    ENDIF           reduce using rule 36 (statement -> repeat_statement .)
+    ENDLOOP         reduce using rule 36 (statement -> repeat_statement .)
+
+
+state 12
+
+    (37) statement -> for_statement .
+
+    SEMI            reduce using rule 37 (statement -> for_statement .)
+    $end            reduce using rule 37 (statement -> for_statement .)
+    END             reduce using rule 37 (statement -> for_statement .)
+    UNTIL           reduce using rule 37 (statement -> for_statement .)
+    ELSE            reduce using rule 37 (statement -> for_statement .)
+    ELSIF           reduce using rule 37 (statement -> for_statement .)
+    ENDIF           reduce using rule 37 (statement -> for_statement .)
+    ENDLOOP         reduce using rule 37 (statement -> for_statement .)
+
+
+state 13
+
+    (38) statement -> procedure_or_function_call .
+
+    SEMI            reduce using rule 38 (statement -> procedure_or_function_call .)
+    $end            reduce using rule 38 (statement -> procedure_or_function_call .)
+    END             reduce using rule 38 (statement -> procedure_or_function_call .)
+    UNTIL           reduce using rule 38 (statement -> procedure_or_function_call .)
+    ELSE            reduce using rule 38 (statement -> procedure_or_function_call .)
+    ELSIF           reduce using rule 38 (statement -> procedure_or_function_call .)
+    ENDIF           reduce using rule 38 (statement -> procedure_or_function_call .)
+    ENDLOOP         reduce using rule 38 (statement -> procedure_or_function_call .)
+
+
+state 14
+
+    (29) statement_part -> BEGIN . statement_sequence END
+    (30) statement_sequence -> . statement SEMI statement_sequence
+    (31) statement_sequence -> . statement
+    (32) statement -> . assignment_statement
+    (33) statement -> . statement_part
+    (34) statement -> . if_statement
+    (35) statement -> . while_statement
+    (36) statement -> . repeat_statement
+    (37) statement -> . for_statement
+    (38) statement -> . procedure_or_function_call
+    (39) statement -> .
+    (52) assignment_statement -> . identifier COLEQ expression
+    (29) statement_part -> . BEGIN statement_sequence END
+    (45) if_statement -> . IF expression THEN statement ELSE statement ENDIF
+    (46) if_statement -> . IF expression THEN statement ELSIF statement ENDIF
+    (47) if_statement -> . IF expression THEN statement ENDIF
+    (48) while_statement -> . WHILE expression LOOP statement ENDLOOP
+    (49) repeat_statement -> . REPEAT statement UNTIL expression
+    (50) for_statement -> . FOR assignment_statement TO expression LOOP statement ENDLOOP
+    (51) for_statement -> . FOR assignment_statement DOWNTO expression LOOP statement ENDLOOP
+    (40) procedure_or_function_call -> . identifier LPAREN param_list RPAREN
+    (41) procedure_or_function_call -> . identifier
+    (77) identifier -> . ID
+
+    SEMI            reduce using rule 39 (statement -> .)
+    END             reduce using rule 39 (statement -> .)
+    BEGIN           shift and go to state 14
+    IF              shift and go to state 15
+    WHILE           shift and go to state 16
+    REPEAT          shift and go to state 17
+    FOR             shift and go to state 18
+    ID              shift and go to state 19
+
+    statement_sequence             shift and go to state 25
+    statement                      shift and go to state 6
+    assignment_statement           shift and go to state 7
+    statement_part                 shift and go to state 8
+    if_statement                   shift and go to state 9
+    while_statement                shift and go to state 10
+    repeat_statement               shift and go to state 11
+    for_statement                  shift and go to state 12
+    procedure_or_function_call     shift and go to state 13
+    identifier                     shift and go to state 5
+
+state 15
+
+    (45) if_statement -> IF . expression THEN statement ELSE statement ENDIF
+    (46) if_statement -> IF . expression THEN statement ELSIF statement ENDIF
+    (47) if_statement -> IF . expression THEN statement ENDIF
+    (53) expression -> . expression and_or expression_m
+    (54) expression -> . expression_m
+    (55) expression_m -> . expression_s
+    (56) expression_m -> . expression_m sign expression_s
+    (57) expression_s -> . element
+    (58) expression_s -> . expression_s psign element
+    (71) element -> . identifier
+    (72) element -> . integer
+    (73) element -> . string
+    (74) element -> . char
+    (75) element -> . LPAREN expression RPAREN
+    (76) element -> . NOT element
+    (77) identifier -> . ID
+    (78) integer -> . ICONST
+    (79) string -> . SCONST
+    (80) char -> . CCONST
+
+    LPAREN          shift and go to state 34
+    NOT             shift and go to state 35
+    ID              shift and go to state 19
+    ICONST          shift and go to state 36
+    SCONST          shift and go to state 37
+    CCONST          shift and go to state 38
+
+    expression                     shift and go to state 26
+    expression_m                   shift and go to state 27
+    expression_s                   shift and go to state 28
+    element                        shift and go to state 29
+    identifier                     shift and go to state 30
+    integer                        shift and go to state 31
+    string                         shift and go to state 32
+    char                           shift and go to state 33
+
+state 16
+
+    (48) while_statement -> WHILE . expression LOOP statement ENDLOOP
+    (53) expression -> . expression and_or expression_m
+    (54) expression -> . expression_m
+    (55) expression_m -> . expression_s
+    (56) expression_m -> . expression_m sign expression_s
+    (57) expression_s -> . element
+    (58) expression_s -> . expression_s psign element
+    (71) element -> . identifier
+    (72) element -> . integer
+    (73) element -> . string
+    (74) element -> . char
+    (75) element -> . LPAREN expression RPAREN
+    (76) element -> . NOT element
+    (77) identifier -> . ID
+    (78) integer -> . ICONST
+    (79) string -> . SCONST
+    (80) char -> . CCONST
+
+    LPAREN          shift and go to state 34
+    NOT             shift and go to state 35
+    ID              shift and go to state 19
+    ICONST          shift and go to state 36
+    SCONST          shift and go to state 37
+    CCONST          shift and go to state 38
+
+    expression                     shift and go to state 39
+    expression_m                   shift and go to state 27
+    expression_s                   shift and go to state 28
+    element                        shift and go to state 29
+    identifier                     shift and go to state 30
+    integer                        shift and go to state 31
+    string                         shift and go to state 32
+    char                           shift and go to state 33
+
+state 17
+
+    (49) repeat_statement -> REPEAT . statement UNTIL expression
+    (32) statement -> . assignment_statement
+    (33) statement -> . statement_part
+    (34) statement -> . if_statement
+    (35) statement -> . while_statement
+    (36) statement -> . repeat_statement
+    (37) statement -> . for_statement
+    (38) statement -> . procedure_or_function_call
+    (39) statement -> .
+    (52) assignment_statement -> . identifier COLEQ expression
+    (29) statement_part -> . BEGIN statement_sequence END
+    (45) if_statement -> . IF expression THEN statement ELSE statement ENDIF
+    (46) if_statement -> . IF expression THEN statement ELSIF statement ENDIF
+    (47) if_statement -> . IF expression THEN statement ENDIF
+    (48) while_statement -> . WHILE expression LOOP statement ENDLOOP
+    (49) repeat_statement -> . REPEAT statement UNTIL expression
+    (50) for_statement -> . FOR assignment_statement TO expression LOOP statement ENDLOOP
+    (51) for_statement -> . FOR assignment_statement DOWNTO expression LOOP statement ENDLOOP
+    (40) procedure_or_function_call -> . identifier LPAREN param_list RPAREN
+    (41) procedure_or_function_call -> . identifier
+    (77) identifier -> . ID
+
+    UNTIL           reduce using rule 39 (statement -> .)
+    BEGIN           shift and go to state 14
+    IF              shift and go to state 15
+    WHILE           shift and go to state 16
+    REPEAT          shift and go to state 17
+    FOR             shift and go to state 18
+    ID              shift and go to state 19
+
+    statement                      shift and go to state 40
+    assignment_statement           shift and go to state 7
+    statement_part                 shift and go to state 8
+    if_statement                   shift and go to state 9
+    while_statement                shift and go to state 10
+    repeat_statement               shift and go to state 11
+    for_statement                  shift and go to state 12
+    procedure_or_function_call     shift and go to state 13
+    identifier                     shift and go to state 5
+
+state 18
+
+    (50) for_statement -> FOR . assignment_statement TO expression LOOP statement ENDLOOP
+    (51) for_statement -> FOR . assignment_statement DOWNTO expression LOOP statement ENDLOOP
+    (52) assignment_statement -> . identifier COLEQ expression
+    (77) identifier -> . ID
+
+    ID              shift and go to state 19
+
+    assignment_statement           shift and go to state 41
+    identifier                     shift and go to state 42
+
+state 19
+
+    (77) identifier -> ID .
+
+    COLEQ           reduce using rule 77 (identifier -> ID .)
+    LPAREN          reduce using rule 77 (identifier -> ID .)
+    SEMI            reduce using rule 77 (identifier -> ID .)
+    $end            reduce using rule 77 (identifier -> ID .)
+    END             reduce using rule 77 (identifier -> ID .)
+    TIMES           reduce using rule 77 (identifier -> ID .)
+    DIV             reduce using rule 77 (identifier -> ID .)
+    PLUS            reduce using rule 77 (identifier -> ID .)
+    MINUS           reduce using rule 77 (identifier -> ID .)
+    EQ              reduce using rule 77 (identifier -> ID .)
+    NE              reduce using rule 77 (identifier -> ID .)
+    LT              reduce using rule 77 (identifier -> ID .)
+    LE              reduce using rule 77 (identifier -> ID .)
+    GT              reduce using rule 77 (identifier -> ID .)
+    GE              reduce using rule 77 (identifier -> ID .)
+    THEN            reduce using rule 77 (identifier -> ID .)
+    AND             reduce using rule 77 (identifier -> ID .)
+    OR              reduce using rule 77 (identifier -> ID .)
+    LOOP            reduce using rule 77 (identifier -> ID .)
+    UNTIL           reduce using rule 77 (identifier -> ID .)
+    TO              reduce using rule 77 (identifier -> ID .)
+    DOWNTO          reduce using rule 77 (identifier -> ID .)
+    ELSE            reduce using rule 77 (identifier -> ID .)
+    ELSIF           reduce using rule 77 (identifier -> ID .)
+    ENDIF           reduce using rule 77 (identifier -> ID .)
+    ENDLOOP         reduce using rule 77 (identifier -> ID .)
+    RPAREN          reduce using rule 77 (identifier -> ID .)
+    COMMA           reduce using rule 77 (identifier -> ID .)
+    COLON           reduce using rule 77 (identifier -> ID .)
+
+
+state 20
+
+    (1) program -> header SEMI . block DOT
+    (4) block -> . variable_declaration_part procedure_or_function statement_part
+    (5) variable_declaration_part -> . VAR variable_declaration_list
+    (6) variable_declaration_part -> .
+
+    VAR             shift and go to state 45
+    PROCEDURE       reduce using rule 6 (variable_declaration_part -> .)
+    FUNCTION        reduce using rule 6 (variable_declaration_part -> .)
+    BEGIN           reduce using rule 6 (variable_declaration_part -> .)
+
+    block                          shift and go to state 43
+    variable_declaration_part      shift and go to state 44
+
+state 21
+
+    (3) header -> PROGRAM identifier .
+
+    SEMI            reduce using rule 3 (header -> PROGRAM identifier .)
+
+
+state 22
+
+    (52) assignment_statement -> identifier COLEQ . expression
+    (53) expression -> . expression and_or expression_m
+    (54) expression -> . expression_m
+    (55) expression_m -> . expression_s
+    (56) expression_m -> . expression_m sign expression_s
+    (57) expression_s -> . element
+    (58) expression_s -> . expression_s psign element
+    (71) element -> . identifier
+    (72) element -> . integer
+    (73) element -> . string
+    (74) element -> . char
+    (75) element -> . LPAREN expression RPAREN
+    (76) element -> . NOT element
+    (77) identifier -> . ID
+    (78) integer -> . ICONST
+    (79) string -> . SCONST
+    (80) char -> . CCONST
+
+    LPAREN          shift and go to state 34
+    NOT             shift and go to state 35
+    ID              shift and go to state 19
+    ICONST          shift and go to state 36
+    SCONST          shift and go to state 37
+    CCONST          shift and go to state 38
+
+    identifier                     shift and go to state 30
+    expression                     shift and go to state 46
+    expression_m                   shift and go to state 27
+    expression_s                   shift and go to state 28
+    element                        shift and go to state 29
+    integer                        shift and go to state 31
+    string                         shift and go to state 32
+    char                           shift and go to state 33
+
+state 23
+
+    (40) procedure_or_function_call -> identifier LPAREN . param_list RPAREN
+    (42) param_list -> . param_list COMMA param
+    (43) param_list -> . param
+    (44) param -> . expression
+    (53) expression -> . expression and_or expression_m
+    (54) expression -> . expression_m
+    (55) expression_m -> . expression_s
+    (56) expression_m -> . expression_m sign expression_s
+    (57) expression_s -> . element
+    (58) expression_s -> . expression_s psign element
+    (71) element -> . identifier
+    (72) element -> . integer
+    (73) element -> . string
+    (74) element -> . char
+    (75) element -> . LPAREN expression RPAREN
+    (76) element -> . NOT element
+    (77) identifier -> . ID
+    (78) integer -> . ICONST
+    (79) string -> . SCONST
+    (80) char -> . CCONST
+
+    LPAREN          shift and go to state 34
+    NOT             shift and go to state 35
+    ID              shift and go to state 19
+    ICONST          shift and go to state 36
+    SCONST          shift and go to state 37
+    CCONST          shift and go to state 38
+
+    identifier                     shift and go to state 30
+    param_list                     shift and go to state 47
+    param                          shift and go to state 48
+    expression                     shift and go to state 49
+    expression_m                   shift and go to state 27
+    expression_s                   shift and go to state 28
+    element                        shift and go to state 29
+    integer                        shift and go to state 31
+    string                         shift and go to state 32
+    char                           shift and go to state 33
+
+state 24
+
+    (30) statement_sequence -> statement SEMI . statement_sequence
+    (30) statement_sequence -> . statement SEMI statement_sequence
+    (31) statement_sequence -> . statement
+    (32) statement -> . assignment_statement
+    (33) statement -> . statement_part
+    (34) statement -> . if_statement
+    (35) statement -> . while_statement
+    (36) statement -> . repeat_statement
+    (37) statement -> . for_statement
+    (38) statement -> . procedure_or_function_call
+    (39) statement -> .
+    (52) assignment_statement -> . identifier COLEQ expression
+    (29) statement_part -> . BEGIN statement_sequence END
+    (45) if_statement -> . IF expression THEN statement ELSE statement ENDIF
+    (46) if_statement -> . IF expression THEN statement ELSIF statement ENDIF
+    (47) if_statement -> . IF expression THEN statement ENDIF
+    (48) while_statement -> . WHILE expression LOOP statement ENDLOOP
+    (49) repeat_statement -> . REPEAT statement UNTIL expression
+    (50) for_statement -> . FOR assignment_statement TO expression LOOP statement ENDLOOP
+    (51) for_statement -> . FOR assignment_statement DOWNTO expression LOOP statement ENDLOOP
+    (40) procedure_or_function_call -> . identifier LPAREN param_list RPAREN
+    (41) procedure_or_function_call -> . identifier
+    (77) identifier -> . ID
+
+    SEMI            reduce using rule 39 (statement -> .)
+    $end            reduce using rule 39 (statement -> .)
+    END             reduce using rule 39 (statement -> .)
+    BEGIN           shift and go to state 14
+    IF              shift and go to state 15
+    WHILE           shift and go to state 16
+    REPEAT          shift and go to state 17
+    FOR             shift and go to state 18
+    ID              shift and go to state 19
+
+    statement                      shift and go to state 6
+    statement_sequence             shift and go to state 50
+    assignment_statement           shift and go to state 7
+    statement_part                 shift and go to state 8
+    if_statement                   shift and go to state 9
+    while_statement                shift and go to state 10
+    repeat_statement               shift and go to state 11
+    for_statement                  shift and go to state 12
+    procedure_or_function_call     shift and go to state 13
+    identifier                     shift and go to state 5
+
+state 25
+
+    (29) statement_part -> BEGIN statement_sequence . END
+
+    END             shift and go to state 51
+
+
+state 26
+
+    (45) if_statement -> IF expression . THEN statement ELSE statement ENDIF
+    (46) if_statement -> IF expression . THEN statement ELSIF statement ENDIF
+    (47) if_statement -> IF expression . THEN statement ENDIF
+    (53) expression -> expression . and_or expression_m
+    (59) and_or -> . AND
+    (60) and_or -> . OR
+
+    THEN            shift and go to state 52
+    AND             shift and go to state 54
+    OR              shift and go to state 55
+
+    and_or                         shift and go to state 53
+
+state 27
+
+    (54) expression -> expression_m .
+    (56) expression_m -> expression_m . sign expression_s
+    (63) sign -> . PLUS
+    (64) sign -> . MINUS
+    (65) sign -> . EQ
+    (66) sign -> . NE
+    (67) sign -> . LT
+    (68) sign -> . LE
+    (69) sign -> . GT
+    (70) sign -> . GE
+
+    THEN            reduce using rule 54 (expression -> expression_m .)
+    AND             reduce using rule 54 (expression -> expression_m .)
+    OR              reduce using rule 54 (expression -> expression_m .)
+    LOOP            reduce using rule 54 (expression -> expression_m .)
+    SEMI            reduce using rule 54 (expression -> expression_m .)
+    $end            reduce using rule 54 (expression -> expression_m .)
+    END             reduce using rule 54 (expression -> expression_m .)
+    UNTIL           reduce using rule 54 (expression -> expression_m .)
+    TO              reduce using rule 54 (expression -> expression_m .)
+    DOWNTO          reduce using rule 54 (expression -> expression_m .)
+    ELSE            reduce using rule 54 (expression -> expression_m .)
+    ELSIF           reduce using rule 54 (expression -> expression_m .)
+    ENDIF           reduce using rule 54 (expression -> expression_m .)
+    ENDLOOP         reduce using rule 54 (expression -> expression_m .)
+    RPAREN          reduce using rule 54 (expression -> expression_m .)
+    COMMA           reduce using rule 54 (expression -> expression_m .)
+    PLUS            shift and go to state 57
+    MINUS           shift and go to state 58
+    EQ              shift and go to state 59
+    NE              shift and go to state 60
+    LT              shift and go to state 61
+    LE              shift and go to state 62
+    GT              shift and go to state 63
+    GE              shift and go to state 64
+
+    sign                           shift and go to state 56
+
+state 28
+
+    (55) expression_m -> expression_s .
+    (58) expression_s -> expression_s . psign element
+    (61) psign -> . TIMES
+    (62) psign -> . DIV
+
+    PLUS            reduce using rule 55 (expression_m -> expression_s .)
+    MINUS           reduce using rule 55 (expression_m -> expression_s .)
+    EQ              reduce using rule 55 (expression_m -> expression_s .)
+    NE              reduce using rule 55 (expression_m -> expression_s .)
+    LT              reduce using rule 55 (expression_m -> expression_s .)
+    LE              reduce using rule 55 (expression_m -> expression_s .)
+    GT              reduce using rule 55 (expression_m -> expression_s .)
+    GE              reduce using rule 55 (expression_m -> expression_s .)
+    THEN            reduce using rule 55 (expression_m -> expression_s .)
+    AND             reduce using rule 55 (expression_m -> expression_s .)
+    OR              reduce using rule 55 (expression_m -> expression_s .)
+    LOOP            reduce using rule 55 (expression_m -> expression_s .)
+    SEMI            reduce using rule 55 (expression_m -> expression_s .)
+    $end            reduce using rule 55 (expression_m -> expression_s .)
+    END             reduce using rule 55 (expression_m -> expression_s .)
+    UNTIL           reduce using rule 55 (expression_m -> expression_s .)
+    TO              reduce using rule 55 (expression_m -> expression_s .)
+    DOWNTO          reduce using rule 55 (expression_m -> expression_s .)
+    ELSE            reduce using rule 55 (expression_m -> expression_s .)
+    ELSIF           reduce using rule 55 (expression_m -> expression_s .)
+    ENDIF           reduce using rule 55 (expression_m -> expression_s .)
+    ENDLOOP         reduce using rule 55 (expression_m -> expression_s .)
+    RPAREN          reduce using rule 55 (expression_m -> expression_s .)
+    COMMA           reduce using rule 55 (expression_m -> expression_s .)
+    TIMES           shift and go to state 66
+    DIV             shift and go to state 67
+
+    psign                          shift and go to state 65
+
+state 29
+
+    (57) expression_s -> element .
+
+    TIMES           reduce using rule 57 (expression_s -> element .)
+    DIV             reduce using rule 57 (expression_s -> element .)
+    PLUS            reduce using rule 57 (expression_s -> element .)
+    MINUS           reduce using rule 57 (expression_s -> element .)
+    EQ              reduce using rule 57 (expression_s -> element .)
+    NE              reduce using rule 57 (expression_s -> element .)
+    LT              reduce using rule 57 (expression_s -> element .)
+    LE              reduce using rule 57 (expression_s -> element .)
+    GT              reduce using rule 57 (expression_s -> element .)
+    GE              reduce using rule 57 (expression_s -> element .)
+    THEN            reduce using rule 57 (expression_s -> element .)
+    AND             reduce using rule 57 (expression_s -> element .)
+    OR              reduce using rule 57 (expression_s -> element .)
+    LOOP            reduce using rule 57 (expression_s -> element .)
+    SEMI            reduce using rule 57 (expression_s -> element .)
+    $end            reduce using rule 57 (expression_s -> element .)
+    END             reduce using rule 57 (expression_s -> element .)
+    UNTIL           reduce using rule 57 (expression_s -> element .)
+    TO              reduce using rule 57 (expression_s -> element .)
+    DOWNTO          reduce using rule 57 (expression_s -> element .)
+    ELSE            reduce using rule 57 (expression_s -> element .)
+    ELSIF           reduce using rule 57 (expression_s -> element .)
+    ENDIF           reduce using rule 57 (expression_s -> element .)
+    ENDLOOP         reduce using rule 57 (expression_s -> element .)
+    RPAREN          reduce using rule 57 (expression_s -> element .)
+    COMMA           reduce using rule 57 (expression_s -> element .)
+
+
+state 30
+
+    (71) element -> identifier .
+
+    TIMES           reduce using rule 71 (element -> identifier .)
+    DIV             reduce using rule 71 (element -> identifier .)
+    PLUS            reduce using rule 71 (element -> identifier .)
+    MINUS           reduce using rule 71 (element -> identifier .)
+    EQ              reduce using rule 71 (element -> identifier .)
+    NE              reduce using rule 71 (element -> identifier .)
+    LT              reduce using rule 71 (element -> identifier .)
+    LE              reduce using rule 71 (element -> identifier .)
+    GT              reduce using rule 71 (element -> identifier .)
+    GE              reduce using rule 71 (element -> identifier .)
+    THEN            reduce using rule 71 (element -> identifier .)
+    AND             reduce using rule 71 (element -> identifier .)
+    OR              reduce using rule 71 (element -> identifier .)
+    LOOP            reduce using rule 71 (element -> identifier .)
+    SEMI            reduce using rule 71 (element -> identifier .)
+    $end            reduce using rule 71 (element -> identifier .)
+    END             reduce using rule 71 (element -> identifier .)
+    UNTIL           reduce using rule 71 (element -> identifier .)
+    TO              reduce using rule 71 (element -> identifier .)
+    DOWNTO          reduce using rule 71 (element -> identifier .)
+    ELSE            reduce using rule 71 (element -> identifier .)
+    ELSIF           reduce using rule 71 (element -> identifier .)
+    ENDIF           reduce using rule 71 (element -> identifier .)
+    ENDLOOP         reduce using rule 71 (element -> identifier .)
+    RPAREN          reduce using rule 71 (element -> identifier .)
+    COMMA           reduce using rule 71 (element -> identifier .)
+
+
+state 31
+
+    (72) element -> integer .
+
+    TIMES           reduce using rule 72 (element -> integer .)
+    DIV             reduce using rule 72 (element -> integer .)
+    PLUS            reduce using rule 72 (element -> integer .)
+    MINUS           reduce using rule 72 (element -> integer .)
+    EQ              reduce using rule 72 (element -> integer .)
+    NE              reduce using rule 72 (element -> integer .)
+    LT              reduce using rule 72 (element -> integer .)
+    LE              reduce using rule 72 (element -> integer .)
+    GT              reduce using rule 72 (element -> integer .)
+    GE              reduce using rule 72 (element -> integer .)
+    THEN            reduce using rule 72 (element -> integer .)
+    AND             reduce using rule 72 (element -> integer .)
+    OR              reduce using rule 72 (element -> integer .)
+    LOOP            reduce using rule 72 (element -> integer .)
+    SEMI            reduce using rule 72 (element -> integer .)
+    $end            reduce using rule 72 (element -> integer .)
+    END             reduce using rule 72 (element -> integer .)
+    UNTIL           reduce using rule 72 (element -> integer .)
+    TO              reduce using rule 72 (element -> integer .)
+    DOWNTO          reduce using rule 72 (element -> integer .)
+    ELSE            reduce using rule 72 (element -> integer .)
+    ELSIF           reduce using rule 72 (element -> integer .)
+    ENDIF           reduce using rule 72 (element -> integer .)
+    ENDLOOP         reduce using rule 72 (element -> integer .)
+    RPAREN          reduce using rule 72 (element -> integer .)
+    COMMA           reduce using rule 72 (element -> integer .)
+
+
+state 32
+
+    (73) element -> string .
+
+    TIMES           reduce using rule 73 (element -> string .)
+    DIV             reduce using rule 73 (element -> string .)
+    PLUS            reduce using rule 73 (element -> string .)
+    MINUS           reduce using rule 73 (element -> string .)
+    EQ              reduce using rule 73 (element -> string .)
+    NE              reduce using rule 73 (element -> string .)
+    LT              reduce using rule 73 (element -> string .)
+    LE              reduce using rule 73 (element -> string .)
+    GT              reduce using rule 73 (element -> string .)
+    GE              reduce using rule 73 (element -> string .)
+    THEN            reduce using rule 73 (element -> string .)
+    AND             reduce using rule 73 (element -> string .)
+    OR              reduce using rule 73 (element -> string .)
+    LOOP            reduce using rule 73 (element -> string .)
+    SEMI            reduce using rule 73 (element -> string .)
+    $end            reduce using rule 73 (element -> string .)
+    END             reduce using rule 73 (element -> string .)
+    UNTIL           reduce using rule 73 (element -> string .)
+    TO              reduce using rule 73 (element -> string .)
+    DOWNTO          reduce using rule 73 (element -> string .)
+    ELSE            reduce using rule 73 (element -> string .)
+    ELSIF           reduce using rule 73 (element -> string .)
+    ENDIF           reduce using rule 73 (element -> string .)
+    ENDLOOP         reduce using rule 73 (element -> string .)
+    RPAREN          reduce using rule 73 (element -> string .)
+    COMMA           reduce using rule 73 (element -> string .)
+
+
+state 33
+
+    (74) element -> char .
+
+    TIMES           reduce using rule 74 (element -> char .)
+    DIV             reduce using rule 74 (element -> char .)
+    PLUS            reduce using rule 74 (element -> char .)
+    MINUS           reduce using rule 74 (element -> char .)
+    EQ              reduce using rule 74 (element -> char .)
+    NE              reduce using rule 74 (element -> char .)
+    LT              reduce using rule 74 (element -> char .)
+    LE              reduce using rule 74 (element -> char .)
+    GT              reduce using rule 74 (element -> char .)
+    GE              reduce using rule 74 (element -> char .)
+    THEN            reduce using rule 74 (element -> char .)
+    AND             reduce using rule 74 (element -> char .)
+    OR              reduce using rule 74 (element -> char .)
+    LOOP            reduce using rule 74 (element -> char .)
+    SEMI            reduce using rule 74 (element -> char .)
+    $end            reduce using rule 74 (element -> char .)
+    END             reduce using rule 74 (element -> char .)
+    UNTIL           reduce using rule 74 (element -> char .)
+    TO              reduce using rule 74 (element -> char .)
+    DOWNTO          reduce using rule 74 (element -> char .)
+    ELSE            reduce using rule 74 (element -> char .)
+    ELSIF           reduce using rule 74 (element -> char .)
+    ENDIF           reduce using rule 74 (element -> char .)
+    ENDLOOP         reduce using rule 74 (element -> char .)
+    RPAREN          reduce using rule 74 (element -> char .)
+    COMMA           reduce using rule 74 (element -> char .)
+
+
+state 34
+
+    (75) element -> LPAREN . expression RPAREN
+    (53) expression -> . expression and_or expression_m
+    (54) expression -> . expression_m
+    (55) expression_m -> . expression_s
+    (56) expression_m -> . expression_m sign expression_s
+    (57) expression_s -> . element
+    (58) expression_s -> . expression_s psign element
+    (71) element -> . identifier
+    (72) element -> . integer
+    (73) element -> . string
+    (74) element -> . char
+    (75) element -> . LPAREN expression RPAREN
+    (76) element -> . NOT element
+    (77) identifier -> . ID
+    (78) integer -> . ICONST
+    (79) string -> . SCONST
+    (80) char -> . CCONST
+
+    LPAREN          shift and go to state 34
+    NOT             shift and go to state 35
+    ID              shift and go to state 19
+    ICONST          shift and go to state 36
+    SCONST          shift and go to state 37
+    CCONST          shift and go to state 38
+
+    expression                     shift and go to state 68
+    expression_m                   shift and go to state 27
+    expression_s                   shift and go to state 28
+    element                        shift and go to state 29
+    identifier                     shift and go to state 30
+    integer                        shift and go to state 31
+    string                         shift and go to state 32
+    char                           shift and go to state 33
+
+state 35
+
+    (76) element -> NOT . element
+    (71) element -> . identifier
+    (72) element -> . integer
+    (73) element -> . string
+    (74) element -> . char
+    (75) element -> . LPAREN expression RPAREN
+    (76) element -> . NOT element
+    (77) identifier -> . ID
+    (78) integer -> . ICONST
+    (79) string -> . SCONST
+    (80) char -> . CCONST
+
+    LPAREN          shift and go to state 34
+    NOT             shift and go to state 35
+    ID              shift and go to state 19
+    ICONST          shift and go to state 36
+    SCONST          shift and go to state 37
+    CCONST          shift and go to state 38
+
+    element                        shift and go to state 69
+    identifier                     shift and go to state 30
+    integer                        shift and go to state 31
+    string                         shift and go to state 32
+    char                           shift and go to state 33
+
+state 36
+
+    (78) integer -> ICONST .
+
+    TIMES           reduce using rule 78 (integer -> ICONST .)
+    DIV             reduce using rule 78 (integer -> ICONST .)
+    PLUS            reduce using rule 78 (integer -> ICONST .)
+    MINUS           reduce using rule 78 (integer -> ICONST .)
+    EQ              reduce using rule 78 (integer -> ICONST .)
+    NE              reduce using rule 78 (integer -> ICONST .)
+    LT              reduce using rule 78 (integer -> ICONST .)
+    LE              reduce using rule 78 (integer -> ICONST .)
+    GT              reduce using rule 78 (integer -> ICONST .)
+    GE              reduce using rule 78 (integer -> ICONST .)
+    THEN            reduce using rule 78 (integer -> ICONST .)
+    AND             reduce using rule 78 (integer -> ICONST .)
+    OR              reduce using rule 78 (integer -> ICONST .)
+    LOOP            reduce using rule 78 (integer -> ICONST .)
+    SEMI            reduce using rule 78 (integer -> ICONST .)
+    $end            reduce using rule 78 (integer -> ICONST .)
+    END             reduce using rule 78 (integer -> ICONST .)
+    UNTIL           reduce using rule 78 (integer -> ICONST .)
+    TO              reduce using rule 78 (integer -> ICONST .)
+    DOWNTO          reduce using rule 78 (integer -> ICONST .)
+    ELSE            reduce using rule 78 (integer -> ICONST .)
+    ELSIF           reduce using rule 78 (integer -> ICONST .)
+    ENDIF           reduce using rule 78 (integer -> ICONST .)
+    ENDLOOP         reduce using rule 78 (integer -> ICONST .)
+    RPAREN          reduce using rule 78 (integer -> ICONST .)
+    COMMA           reduce using rule 78 (integer -> ICONST .)
+
+
+state 37
+
+    (79) string -> SCONST .
+
+    TIMES           reduce using rule 79 (string -> SCONST .)
+    DIV             reduce using rule 79 (string -> SCONST .)
+    PLUS            reduce using rule 79 (string -> SCONST .)
+    MINUS           reduce using rule 79 (string -> SCONST .)
+    EQ              reduce using rule 79 (string -> SCONST .)
+    NE              reduce using rule 79 (string -> SCONST .)
+    LT              reduce using rule 79 (string -> SCONST .)
+    LE              reduce using rule 79 (string -> SCONST .)
+    GT              reduce using rule 79 (string -> SCONST .)
+    GE              reduce using rule 79 (string -> SCONST .)
+    THEN            reduce using rule 79 (string -> SCONST .)
+    AND             reduce using rule 79 (string -> SCONST .)
+    OR              reduce using rule 79 (string -> SCONST .)
+    LOOP            reduce using rule 79 (string -> SCONST .)
+    SEMI            reduce using rule 79 (string -> SCONST .)
+    $end            reduce using rule 79 (string -> SCONST .)
+    END             reduce using rule 79 (string -> SCONST .)
+    UNTIL           reduce using rule 79 (string -> SCONST .)
+    TO              reduce using rule 79 (string -> SCONST .)
+    DOWNTO          reduce using rule 79 (string -> SCONST .)
+    ELSE            reduce using rule 79 (string -> SCONST .)
+    ELSIF           reduce using rule 79 (string -> SCONST .)
+    ENDIF           reduce using rule 79 (string -> SCONST .)
+    ENDLOOP         reduce using rule 79 (string -> SCONST .)
+    RPAREN          reduce using rule 79 (string -> SCONST .)
+    COMMA           reduce using rule 79 (string -> SCONST .)
+
+
+state 38
+
+    (80) char -> CCONST .
+
+    TIMES           reduce using rule 80 (char -> CCONST .)
+    DIV             reduce using rule 80 (char -> CCONST .)
+    PLUS            reduce using rule 80 (char -> CCONST .)
+    MINUS           reduce using rule 80 (char -> CCONST .)
+    EQ              reduce using rule 80 (char -> CCONST .)
+    NE              reduce using rule 80 (char -> CCONST .)
+    LT              reduce using rule 80 (char -> CCONST .)
+    LE              reduce using rule 80 (char -> CCONST .)
+    GT              reduce using rule 80 (char -> CCONST .)
+    GE              reduce using rule 80 (char -> CCONST .)
+    THEN            reduce using rule 80 (char -> CCONST .)
+    AND             reduce using rule 80 (char -> CCONST .)
+    OR              reduce using rule 80 (char -> CCONST .)
+    LOOP            reduce using rule 80 (char -> CCONST .)
+    SEMI            reduce using rule 80 (char -> CCONST .)
+    $end            reduce using rule 80 (char -> CCONST .)
+    END             reduce using rule 80 (char -> CCONST .)
+    UNTIL           reduce using rule 80 (char -> CCONST .)
+    TO              reduce using rule 80 (char -> CCONST .)
+    DOWNTO          reduce using rule 80 (char -> CCONST .)
+    ELSE            reduce using rule 80 (char -> CCONST .)
+    ELSIF           reduce using rule 80 (char -> CCONST .)
+    ENDIF           reduce using rule 80 (char -> CCONST .)
+    ENDLOOP         reduce using rule 80 (char -> CCONST .)
+    RPAREN          reduce using rule 80 (char -> CCONST .)
+    COMMA           reduce using rule 80 (char -> CCONST .)
+
+
+state 39
+
+    (48) while_statement -> WHILE expression . LOOP statement ENDLOOP
+    (53) expression -> expression . and_or expression_m
+    (59) and_or -> . AND
+    (60) and_or -> . OR
+
+    LOOP            shift and go to state 70
+    AND             shift and go to state 54
+    OR              shift and go to state 55
+
+    and_or                         shift and go to state 53
+
+state 40
+
+    (49) repeat_statement -> REPEAT statement . UNTIL expression
+
+    UNTIL           shift and go to state 71
+
+
+state 41
+
+    (50) for_statement -> FOR assignment_statement . TO expression LOOP statement ENDLOOP
+    (51) for_statement -> FOR assignment_statement . DOWNTO expression LOOP statement ENDLOOP
+
+    TO              shift and go to state 72
+    DOWNTO          shift and go to state 73
+
+
+state 42
+
+    (52) assignment_statement -> identifier . COLEQ expression
+
+    COLEQ           shift and go to state 22
+
+
+state 43
+
+    (1) program -> header SEMI block . DOT
+
+    DOT             shift and go to state 74
+
+
+state 44
+
+    (4) block -> variable_declaration_part . procedure_or_function statement_part
+    (12) procedure_or_function -> . proc_or_func_declaration SEMI procedure_or_function
+    (13) procedure_or_function -> .
+    (14) proc_or_func_declaration -> . procedure_declaration
+    (15) proc_or_func_declaration -> . function_declaration
+    (16) procedure_declaration -> . procedure_heading SEMI block
+    (19) function_declaration -> . function_heading SEMI block
+    (17) procedure_heading -> . PROCEDURE identifier
+    (18) procedure_heading -> . PROCEDURE identifier LPAREN parameter_list RPAREN
+    (20) function_heading -> . FUNCTION type
+    (21) function_heading -> . FUNCTION identifier COLON type
+    (22) function_heading -> . FUNCTION identifier LPAREN parameter_list RPAREN COLON type
+
+    BEGIN           reduce using rule 13 (procedure_or_function -> .)
+    PROCEDURE       shift and go to state 81
+    FUNCTION        shift and go to state 82
+
+    procedure_or_function          shift and go to state 75
+    proc_or_func_declaration       shift and go to state 76
+    procedure_declaration          shift and go to state 77
+    function_declaration           shift and go to state 78
+    procedure_heading              shift and go to state 79
+    function_heading               shift and go to state 80
+
+state 45
+
+    (5) variable_declaration_part -> VAR . variable_declaration_list
+    (7) variable_declaration_list -> . variable_declaration variable_declaration_list
+    (8) variable_declaration_list -> . variable_declaration
+    (9) variable_declaration -> . variable_identifier COLON type SEMI
+    (10) variable_identifier -> . identifier COMMA variable_identifier
+    (11) variable_identifier -> . identifier
+    (77) identifier -> . ID
+
+    ID              shift and go to state 19
+
+    variable_declaration_list      shift and go to state 83
+    variable_declaration           shift and go to state 84
+    variable_identifier            shift and go to state 85
+    identifier                     shift and go to state 86
+
+state 46
+
+    (52) assignment_statement -> identifier COLEQ expression .
+    (53) expression -> expression . and_or expression_m
+    (59) and_or -> . AND
+    (60) and_or -> . OR
+
+    SEMI            reduce using rule 52 (assignment_statement -> identifier COLEQ expression .)
+    $end            reduce using rule 52 (assignment_statement -> identifier COLEQ expression .)
+    END             reduce using rule 52 (assignment_statement -> identifier COLEQ expression .)
+    UNTIL           reduce using rule 52 (assignment_statement -> identifier COLEQ expression .)
+    TO              reduce using rule 52 (assignment_statement -> identifier COLEQ expression .)
+    DOWNTO          reduce using rule 52 (assignment_statement -> identifier COLEQ expression .)
+    ELSE            reduce using rule 52 (assignment_statement -> identifier COLEQ expression .)
+    ELSIF           reduce using rule 52 (assignment_statement -> identifier COLEQ expression .)
+    ENDIF           reduce using rule 52 (assignment_statement -> identifier COLEQ expression .)
+    ENDLOOP         reduce using rule 52 (assignment_statement -> identifier COLEQ expression .)
+    AND             shift and go to state 54
+    OR              shift and go to state 55
+
+    and_or                         shift and go to state 53
+
+state 47
+
+    (40) procedure_or_function_call -> identifier LPAREN param_list . RPAREN
+    (42) param_list -> param_list . COMMA param
+
+    RPAREN          shift and go to state 87
+    COMMA           shift and go to state 88
+
+
+state 48
+
+    (43) param_list -> param .
+
+    RPAREN          reduce using rule 43 (param_list -> param .)
+    COMMA           reduce using rule 43 (param_list -> param .)
+
+
+state 49
+
+    (44) param -> expression .
+    (53) expression -> expression . and_or expression_m
+    (59) and_or -> . AND
+    (60) and_or -> . OR
+
+    RPAREN          reduce using rule 44 (param -> expression .)
+    COMMA           reduce using rule 44 (param -> expression .)
+    AND             shift and go to state 54
+    OR              shift and go to state 55
+
+    and_or                         shift and go to state 53
+
+state 50
+
+    (30) statement_sequence -> statement SEMI statement_sequence .
+
+    $end            reduce using rule 30 (statement_sequence -> statement SEMI statement_sequence .)
+    END             reduce using rule 30 (statement_sequence -> statement SEMI statement_sequence .)
+
+
+state 51
+
+    (29) statement_part -> BEGIN statement_sequence END .
+
+    SEMI            reduce using rule 29 (statement_part -> BEGIN statement_sequence END .)
+    $end            reduce using rule 29 (statement_part -> BEGIN statement_sequence END .)
+    END             reduce using rule 29 (statement_part -> BEGIN statement_sequence END .)
+    UNTIL           reduce using rule 29 (statement_part -> BEGIN statement_sequence END .)
+    ELSE            reduce using rule 29 (statement_part -> BEGIN statement_sequence END .)
+    ELSIF           reduce using rule 29 (statement_part -> BEGIN statement_sequence END .)
+    ENDIF           reduce using rule 29 (statement_part -> BEGIN statement_sequence END .)
+    ENDLOOP         reduce using rule 29 (statement_part -> BEGIN statement_sequence END .)
+    DOT             reduce using rule 29 (statement_part -> BEGIN statement_sequence END .)
+
+
+state 52
+
+    (45) if_statement -> IF expression THEN . statement ELSE statement ENDIF
+    (46) if_statement -> IF expression THEN . statement ELSIF statement ENDIF
+    (47) if_statement -> IF expression THEN . statement ENDIF
+    (32) statement -> . assignment_statement
+    (33) statement -> . statement_part
+    (34) statement -> . if_statement
+    (35) statement -> . while_statement
+    (36) statement -> . repeat_statement
+    (37) statement -> . for_statement
+    (38) statement -> . procedure_or_function_call
+    (39) statement -> .
+    (52) assignment_statement -> . identifier COLEQ expression
+    (29) statement_part -> . BEGIN statement_sequence END
+    (45) if_statement -> . IF expression THEN statement ELSE statement ENDIF
+    (46) if_statement -> . IF expression THEN statement ELSIF statement ENDIF
+    (47) if_statement -> . IF expression THEN statement ENDIF
+    (48) while_statement -> . WHILE expression LOOP statement ENDLOOP
+    (49) repeat_statement -> . REPEAT statement UNTIL expression
+    (50) for_statement -> . FOR assignment_statement TO expression LOOP statement ENDLOOP
+    (51) for_statement -> . FOR assignment_statement DOWNTO expression LOOP statement ENDLOOP
+    (40) procedure_or_function_call -> . identifier LPAREN param_list RPAREN
+    (41) procedure_or_function_call -> . identifier
+    (77) identifier -> . ID
+
+    ELSE            reduce using rule 39 (statement -> .)
+    ELSIF           reduce using rule 39 (statement -> .)
+    ENDIF           reduce using rule 39 (statement -> .)
+    BEGIN           shift and go to state 14
+    IF              shift and go to state 15
+    WHILE           shift and go to state 16
+    REPEAT          shift and go to state 17
+    FOR             shift and go to state 18
+    ID              shift and go to state 19
+
+    statement                      shift and go to state 89
+    assignment_statement           shift and go to state 7
+    statement_part                 shift and go to state 8
+    if_statement                   shift and go to state 9
+    while_statement                shift and go to state 10
+    repeat_statement               shift and go to state 11
+    for_statement                  shift and go to state 12
+    procedure_or_function_call     shift and go to state 13
+    identifier                     shift and go to state 5
+
+state 53
+
+    (53) expression -> expression and_or . expression_m
+    (55) expression_m -> . expression_s
+    (56) expression_m -> . expression_m sign expression_s
+    (57) expression_s -> . element
+    (58) expression_s -> . expression_s psign element
+    (71) element -> . identifier
+    (72) element -> . integer
+    (73) element -> . string
+    (74) element -> . char
+    (75) element -> . LPAREN expression RPAREN
+    (76) element -> . NOT element
+    (77) identifier -> . ID
+    (78) integer -> . ICONST
+    (79) string -> . SCONST
+    (80) char -> . CCONST
+
+    LPAREN          shift and go to state 34
+    NOT             shift and go to state 35
+    ID              shift and go to state 19
+    ICONST          shift and go to state 36
+    SCONST          shift and go to state 37
+    CCONST          shift and go to state 38
+
+    expression_m                   shift and go to state 90
+    expression_s                   shift and go to state 28
+    element                        shift and go to state 29
+    identifier                     shift and go to state 30
+    integer                        shift and go to state 31
+    string                         shift and go to state 32
+    char                           shift and go to state 33
+
+state 54
+
+    (59) and_or -> AND .
+
+    LPAREN          reduce using rule 59 (and_or -> AND .)
+    NOT             reduce using rule 59 (and_or -> AND .)
+    ID              reduce using rule 59 (and_or -> AND .)
+    ICONST          reduce using rule 59 (and_or -> AND .)
+    SCONST          reduce using rule 59 (and_or -> AND .)
+    CCONST          reduce using rule 59 (and_or -> AND .)
+
+
+state 55
+
+    (60) and_or -> OR .
+
+    LPAREN          reduce using rule 60 (and_or -> OR .)
+    NOT             reduce using rule 60 (and_or -> OR .)
+    ID              reduce using rule 60 (and_or -> OR .)
+    ICONST          reduce using rule 60 (and_or -> OR .)
+    SCONST          reduce using rule 60 (and_or -> OR .)
+    CCONST          reduce using rule 60 (and_or -> OR .)
+
+
+state 56
+
+    (56) expression_m -> expression_m sign . expression_s
+    (57) expression_s -> . element
+    (58) expression_s -> . expression_s psign element
+    (71) element -> . identifier
+    (72) element -> . integer
+    (73) element -> . string
+    (74) element -> . char
+    (75) element -> . LPAREN expression RPAREN
+    (76) element -> . NOT element
+    (77) identifier -> . ID
+    (78) integer -> . ICONST
+    (79) string -> . SCONST
+    (80) char -> . CCONST
+
+    LPAREN          shift and go to state 34
+    NOT             shift and go to state 35
+    ID              shift and go to state 19
+    ICONST          shift and go to state 36
+    SCONST          shift and go to state 37
+    CCONST          shift and go to state 38
+
+    expression_s                   shift and go to state 91
+    element                        shift and go to state 29
+    identifier                     shift and go to state 30
+    integer                        shift and go to state 31
+    string                         shift and go to state 32
+    char                           shift and go to state 33
+
+state 57
+
+    (63) sign -> PLUS .
+
+    LPAREN          reduce using rule 63 (sign -> PLUS .)
+    NOT             reduce using rule 63 (sign -> PLUS .)
+    ID              reduce using rule 63 (sign -> PLUS .)
+    ICONST          reduce using rule 63 (sign -> PLUS .)
+    SCONST          reduce using rule 63 (sign -> PLUS .)
+    CCONST          reduce using rule 63 (sign -> PLUS .)
+
+
+state 58
+
+    (64) sign -> MINUS .
+
+    LPAREN          reduce using rule 64 (sign -> MINUS .)
+    NOT             reduce using rule 64 (sign -> MINUS .)
+    ID              reduce using rule 64 (sign -> MINUS .)
+    ICONST          reduce using rule 64 (sign -> MINUS .)
+    SCONST          reduce using rule 64 (sign -> MINUS .)
+    CCONST          reduce using rule 64 (sign -> MINUS .)
+
+
+state 59
+
+    (65) sign -> EQ .
+
+    LPAREN          reduce using rule 65 (sign -> EQ .)
+    NOT             reduce using rule 65 (sign -> EQ .)
+    ID              reduce using rule 65 (sign -> EQ .)
+    ICONST          reduce using rule 65 (sign -> EQ .)
+    SCONST          reduce using rule 65 (sign -> EQ .)
+    CCONST          reduce using rule 65 (sign -> EQ .)
+
+
+state 60
+
+    (66) sign -> NE .
+
+    LPAREN          reduce using rule 66 (sign -> NE .)
+    NOT             reduce using rule 66 (sign -> NE .)
+    ID              reduce using rule 66 (sign -> NE .)
+    ICONST          reduce using rule 66 (sign -> NE .)
+    SCONST          reduce using rule 66 (sign -> NE .)
+    CCONST          reduce using rule 66 (sign -> NE .)
+
+
+state 61
+
+    (67) sign -> LT .
+
+    LPAREN          reduce using rule 67 (sign -> LT .)
+    NOT             reduce using rule 67 (sign -> LT .)
+    ID              reduce using rule 67 (sign -> LT .)
+    ICONST          reduce using rule 67 (sign -> LT .)
+    SCONST          reduce using rule 67 (sign -> LT .)
+    CCONST          reduce using rule 67 (sign -> LT .)
+
+
+state 62
+
+    (68) sign -> LE .
+
+    LPAREN          reduce using rule 68 (sign -> LE .)
+    NOT             reduce using rule 68 (sign -> LE .)
+    ID              reduce using rule 68 (sign -> LE .)
+    ICONST          reduce using rule 68 (sign -> LE .)
+    SCONST          reduce using rule 68 (sign -> LE .)
+    CCONST          reduce using rule 68 (sign -> LE .)
+
+
+state 63
+
+    (69) sign -> GT .
+
+    LPAREN          reduce using rule 69 (sign -> GT .)
+    NOT             reduce using rule 69 (sign -> GT .)
+    ID              reduce using rule 69 (sign -> GT .)
+    ICONST          reduce using rule 69 (sign -> GT .)
+    SCONST          reduce using rule 69 (sign -> GT .)
+    CCONST          reduce using rule 69 (sign -> GT .)
+
+
+state 64
+
+    (70) sign -> GE .
+
+    LPAREN          reduce using rule 70 (sign -> GE .)
+    NOT             reduce using rule 70 (sign -> GE .)
+    ID              reduce using rule 70 (sign -> GE .)
+    ICONST          reduce using rule 70 (sign -> GE .)
+    SCONST          reduce using rule 70 (sign -> GE .)
+    CCONST          reduce using rule 70 (sign -> GE .)
+
+
+state 65
+
+    (58) expression_s -> expression_s psign . element
+    (71) element -> . identifier
+    (72) element -> . integer
+    (73) element -> . string
+    (74) element -> . char
+    (75) element -> . LPAREN expression RPAREN
+    (76) element -> . NOT element
+    (77) identifier -> . ID
+    (78) integer -> . ICONST
+    (79) string -> . SCONST
+    (80) char -> . CCONST
+
+    LPAREN          shift and go to state 34
+    NOT             shift and go to state 35
+    ID              shift and go to state 19
+    ICONST          shift and go to state 36
+    SCONST          shift and go to state 37
+    CCONST          shift and go to state 38
+
+    element                        shift and go to state 92
+    identifier                     shift and go to state 30
+    integer                        shift and go to state 31
+    string                         shift and go to state 32
+    char                           shift and go to state 33
+
+state 66
+
+    (61) psign -> TIMES .
+
+    LPAREN          reduce using rule 61 (psign -> TIMES .)
+    NOT             reduce using rule 61 (psign -> TIMES .)
+    ID              reduce using rule 61 (psign -> TIMES .)
+    ICONST          reduce using rule 61 (psign -> TIMES .)
+    SCONST          reduce using rule 61 (psign -> TIMES .)
+    CCONST          reduce using rule 61 (psign -> TIMES .)
+
+
+state 67
+
+    (62) psign -> DIV .
+
+    LPAREN          reduce using rule 62 (psign -> DIV .)
+    NOT             reduce using rule 62 (psign -> DIV .)
+    ID              reduce using rule 62 (psign -> DIV .)
+    ICONST          reduce using rule 62 (psign -> DIV .)
+    SCONST          reduce using rule 62 (psign -> DIV .)
+    CCONST          reduce using rule 62 (psign -> DIV .)
+
+
+state 68
+
+    (75) element -> LPAREN expression . RPAREN
+    (53) expression -> expression . and_or expression_m
+    (59) and_or -> . AND
+    (60) and_or -> . OR
+
+    RPAREN          shift and go to state 93
+    AND             shift and go to state 54
+    OR              shift and go to state 55
+
+    and_or                         shift and go to state 53
+
+state 69
+
+    (76) element -> NOT element .
+
+    TIMES           reduce using rule 76 (element -> NOT element .)
+    DIV             reduce using rule 76 (element -> NOT element .)
+    PLUS            reduce using rule 76 (element -> NOT element .)
+    MINUS           reduce using rule 76 (element -> NOT element .)
+    EQ              reduce using rule 76 (element -> NOT element .)
+    NE              reduce using rule 76 (element -> NOT element .)
+    LT              reduce using rule 76 (element -> NOT element .)
+    LE              reduce using rule 76 (element -> NOT element .)
+    GT              reduce using rule 76 (element -> NOT element .)
+    GE              reduce using rule 76 (element -> NOT element .)
+    THEN            reduce using rule 76 (element -> NOT element .)
+    AND             reduce using rule 76 (element -> NOT element .)
+    OR              reduce using rule 76 (element -> NOT element .)
+    LOOP            reduce using rule 76 (element -> NOT element .)
+    SEMI            reduce using rule 76 (element -> NOT element .)
+    $end            reduce using rule 76 (element -> NOT element .)
+    END             reduce using rule 76 (element -> NOT element .)
+    UNTIL           reduce using rule 76 (element -> NOT element .)
+    TO              reduce using rule 76 (element -> NOT element .)
+    DOWNTO          reduce using rule 76 (element -> NOT element .)
+    ELSE            reduce using rule 76 (element -> NOT element .)
+    ELSIF           reduce using rule 76 (element -> NOT element .)
+    ENDIF           reduce using rule 76 (element -> NOT element .)
+    ENDLOOP         reduce using rule 76 (element -> NOT element .)
+    RPAREN          reduce using rule 76 (element -> NOT element .)
+    COMMA           reduce using rule 76 (element -> NOT element .)
+
+
+state 70
+
+    (48) while_statement -> WHILE expression LOOP . statement ENDLOOP
+    (32) statement -> . assignment_statement
+    (33) statement -> . statement_part
+    (34) statement -> . if_statement
+    (35) statement -> . while_statement
+    (36) statement -> . repeat_statement
+    (37) statement -> . for_statement
+    (38) statement -> . procedure_or_function_call
+    (39) statement -> .
+    (52) assignment_statement -> . identifier COLEQ expression
+    (29) statement_part -> . BEGIN statement_sequence END
+    (45) if_statement -> . IF expression THEN statement ELSE statement ENDIF
+    (46) if_statement -> . IF expression THEN statement ELSIF statement ENDIF
+    (47) if_statement -> . IF expression THEN statement ENDIF
+    (48) while_statement -> . WHILE expression LOOP statement ENDLOOP
+    (49) repeat_statement -> . REPEAT statement UNTIL expression
+    (50) for_statement -> . FOR assignment_statement TO expression LOOP statement ENDLOOP
+    (51) for_statement -> . FOR assignment_statement DOWNTO expression LOOP statement ENDLOOP
+    (40) procedure_or_function_call -> . identifier LPAREN param_list RPAREN
+    (41) procedure_or_function_call -> . identifier
+    (77) identifier -> . ID
+
+    ENDLOOP         reduce using rule 39 (statement -> .)
+    BEGIN           shift and go to state 14
+    IF              shift and go to state 15
+    WHILE           shift and go to state 16
+    REPEAT          shift and go to state 17
+    FOR             shift and go to state 18
+    ID              shift and go to state 19
+
+    statement                      shift and go to state 94
+    assignment_statement           shift and go to state 7
+    statement_part                 shift and go to state 8
+    if_statement                   shift and go to state 9
+    while_statement                shift and go to state 10
+    repeat_statement               shift and go to state 11
+    for_statement                  shift and go to state 12
+    procedure_or_function_call     shift and go to state 13
+    identifier                     shift and go to state 5
+
+state 71
+
+    (49) repeat_statement -> REPEAT statement UNTIL . expression
+    (53) expression -> . expression and_or expression_m
+    (54) expression -> . expression_m
+    (55) expression_m -> . expression_s
+    (56) expression_m -> . expression_m sign expression_s
+    (57) expression_s -> . element
+    (58) expression_s -> . expression_s psign element
+    (71) element -> . identifier
+    (72) element -> . integer
+    (73) element -> . string
+    (74) element -> . char
+    (75) element -> . LPAREN expression RPAREN
+    (76) element -> . NOT element
+    (77) identifier -> . ID
+    (78) integer -> . ICONST
+    (79) string -> . SCONST
+    (80) char -> . CCONST
+
+    LPAREN          shift and go to state 34
+    NOT             shift and go to state 35
+    ID              shift and go to state 19
+    ICONST          shift and go to state 36
+    SCONST          shift and go to state 37
+    CCONST          shift and go to state 38
+
+    expression                     shift and go to state 95
+    expression_m                   shift and go to state 27
+    expression_s                   shift and go to state 28
+    element                        shift and go to state 29
+    identifier                     shift and go to state 30
+    integer                        shift and go to state 31
+    string                         shift and go to state 32
+    char                           shift and go to state 33
+
+state 72
+
+    (50) for_statement -> FOR assignment_statement TO . expression LOOP statement ENDLOOP
+    (53) expression -> . expression and_or expression_m
+    (54) expression -> . expression_m
+    (55) expression_m -> . expression_s
+    (56) expression_m -> . expression_m sign expression_s
+    (57) expression_s -> . element
+    (58) expression_s -> . expression_s psign element
+    (71) element -> . identifier
+    (72) element -> . integer
+    (73) element -> . string
+    (74) element -> . char
+    (75) element -> . LPAREN expression RPAREN
+    (76) element -> . NOT element
+    (77) identifier -> . ID
+    (78) integer -> . ICONST
+    (79) string -> . SCONST
+    (80) char -> . CCONST
+
+    LPAREN          shift and go to state 34
+    NOT             shift and go to state 35
+    ID              shift and go to state 19
+    ICONST          shift and go to state 36
+    SCONST          shift and go to state 37
+    CCONST          shift and go to state 38
+
+    expression                     shift and go to state 96
+    expression_m                   shift and go to state 27
+    expression_s                   shift and go to state 28
+    element                        shift and go to state 29
+    identifier                     shift and go to state 30
+    integer                        shift and go to state 31
+    string                         shift and go to state 32
+    char                           shift and go to state 33
+
+state 73
+
+    (51) for_statement -> FOR assignment_statement DOWNTO . expression LOOP statement ENDLOOP
+    (53) expression -> . expression and_or expression_m
+    (54) expression -> . expression_m
+    (55) expression_m -> . expression_s
+    (56) expression_m -> . expression_m sign expression_s
+    (57) expression_s -> . element
+    (58) expression_s -> . expression_s psign element
+    (71) element -> . identifier
+    (72) element -> . integer
+    (73) element -> . string
+    (74) element -> . char
+    (75) element -> . LPAREN expression RPAREN
+    (76) element -> . NOT element
+    (77) identifier -> . ID
+    (78) integer -> . ICONST
+    (79) string -> . SCONST
+    (80) char -> . CCONST
+
+    LPAREN          shift and go to state 34
+    NOT             shift and go to state 35
+    ID              shift and go to state 19
+    ICONST          shift and go to state 36
+    SCONST          shift and go to state 37
+    CCONST          shift and go to state 38
+
+    expression                     shift and go to state 97
+    expression_m                   shift and go to state 27
+    expression_s                   shift and go to state 28
+    element                        shift and go to state 29
+    identifier                     shift and go to state 30
+    integer                        shift and go to state 31
+    string                         shift and go to state 32
+    char                           shift and go to state 33
+
+state 74
+
+    (1) program -> header SEMI block DOT .
+
+    $end            reduce using rule 1 (program -> header SEMI block DOT .)
+
+
+state 75
+
+    (4) block -> variable_declaration_part procedure_or_function . statement_part
+    (29) statement_part -> . BEGIN statement_sequence END
+
+    BEGIN           shift and go to state 14
+
+    statement_part                 shift and go to state 98
+
+state 76
+
+    (12) procedure_or_function -> proc_or_func_declaration . SEMI procedure_or_function
+
+    SEMI            shift and go to state 99
+
+
+state 77
+
+    (14) proc_or_func_declaration -> procedure_declaration .
+
+    SEMI            reduce using rule 14 (proc_or_func_declaration -> procedure_declaration .)
+
+
+state 78
+
+    (15) proc_or_func_declaration -> function_declaration .
+
+    SEMI            reduce using rule 15 (proc_or_func_declaration -> function_declaration .)
+
+
+state 79
+
+    (16) procedure_declaration -> procedure_heading . SEMI block
+
+    SEMI            shift and go to state 100
+
+
+state 80
+
+    (19) function_declaration -> function_heading . SEMI block
+
+    SEMI            shift and go to state 101
+
+
+state 81
+
+    (17) procedure_heading -> PROCEDURE . identifier
+    (18) procedure_heading -> PROCEDURE . identifier LPAREN parameter_list RPAREN
+    (77) identifier -> . ID
+
+    ID              shift and go to state 19
+
+    identifier                     shift and go to state 102
+
+state 82
+
+    (20) function_heading -> FUNCTION . type
+    (21) function_heading -> FUNCTION . identifier COLON type
+    (22) function_heading -> FUNCTION . identifier LPAREN parameter_list RPAREN COLON type
+    (26) type -> . STRING
+    (27) type -> . INTEGER
+    (28) type -> . CHAR
+    (77) identifier -> . ID
+
+    STRING          shift and go to state 105
+    INTEGER         shift and go to state 106
+    CHAR            shift and go to state 107
+    ID              shift and go to state 19
+
+    type                           shift and go to state 103
+    identifier                     shift and go to state 104
+
+state 83
+
+    (5) variable_declaration_part -> VAR variable_declaration_list .
+
+    PROCEDURE       reduce using rule 5 (variable_declaration_part -> VAR variable_declaration_list .)
+    FUNCTION        reduce using rule 5 (variable_declaration_part -> VAR variable_declaration_list .)
+    BEGIN           reduce using rule 5 (variable_declaration_part -> VAR variable_declaration_list .)
+
+
+state 84
+
+    (7) variable_declaration_list -> variable_declaration . variable_declaration_list
+    (8) variable_declaration_list -> variable_declaration .
+    (7) variable_declaration_list -> . variable_declaration variable_declaration_list
+    (8) variable_declaration_list -> . variable_declaration
+    (9) variable_declaration -> . variable_identifier COLON type SEMI
+    (10) variable_identifier -> . identifier COMMA variable_identifier
+    (11) variable_identifier -> . identifier
+    (77) identifier -> . ID
+
+    PROCEDURE       reduce using rule 8 (variable_declaration_list -> variable_declaration .)
+    FUNCTION        reduce using rule 8 (variable_declaration_list -> variable_declaration .)
+    BEGIN           reduce using rule 8 (variable_declaration_list -> variable_declaration .)
+    ID              shift and go to state 19
+
+    variable_declaration           shift and go to state 84
+    variable_declaration_list      shift and go to state 108
+    variable_identifier            shift and go to state 85
+    identifier                     shift and go to state 86
+
+state 85
+
+    (9) variable_declaration -> variable_identifier . COLON type SEMI
+
+    COLON           shift and go to state 109
+
+
+state 86
+
+    (10) variable_identifier -> identifier . COMMA variable_identifier
+    (11) variable_identifier -> identifier .
+
+    COMMA           shift and go to state 110
+    COLON           reduce using rule 11 (variable_identifier -> identifier .)
+
+
+state 87
+
+    (40) procedure_or_function_call -> identifier LPAREN param_list RPAREN .
+
+    SEMI            reduce using rule 40 (procedure_or_function_call -> identifier LPAREN param_list RPAREN .)
+    $end            reduce using rule 40 (procedure_or_function_call -> identifier LPAREN param_list RPAREN .)
+    END             reduce using rule 40 (procedure_or_function_call -> identifier LPAREN param_list RPAREN .)
+    UNTIL           reduce using rule 40 (procedure_or_function_call -> identifier LPAREN param_list RPAREN .)
+    ELSE            reduce using rule 40 (procedure_or_function_call -> identifier LPAREN param_list RPAREN .)
+    ELSIF           reduce using rule 40 (procedure_or_function_call -> identifier LPAREN param_list RPAREN .)
+    ENDIF           reduce using rule 40 (procedure_or_function_call -> identifier LPAREN param_list RPAREN .)
+    ENDLOOP         reduce using rule 40 (procedure_or_function_call -> identifier LPAREN param_list RPAREN .)
+
+
+state 88
+
+    (42) param_list -> param_list COMMA . param
+    (44) param -> . expression
+    (53) expression -> . expression and_or expression_m
+    (54) expression -> . expression_m
+    (55) expression_m -> . expression_s
+    (56) expression_m -> . expression_m sign expression_s
+    (57) expression_s -> . element
+    (58) expression_s -> . expression_s psign element
+    (71) element -> . identifier
+    (72) element -> . integer
+    (73) element -> . string
+    (74) element -> . char
+    (75) element -> . LPAREN expression RPAREN
+    (76) element -> . NOT element
+    (77) identifier -> . ID
+    (78) integer -> . ICONST
+    (79) string -> . SCONST
+    (80) char -> . CCONST
+
+    LPAREN          shift and go to state 34
+    NOT             shift and go to state 35
+    ID              shift and go to state 19
+    ICONST          shift and go to state 36
+    SCONST          shift and go to state 37
+    CCONST          shift and go to state 38
+
+    param                          shift and go to state 111
+    expression                     shift and go to state 49
+    expression_m                   shift and go to state 27
+    expression_s                   shift and go to state 28
+    element                        shift and go to state 29
+    identifier                     shift and go to state 30
+    integer                        shift and go to state 31
+    string                         shift and go to state 32
+    char                           shift and go to state 33
+
+state 89
+
+    (45) if_statement -> IF expression THEN statement . ELSE statement ENDIF
+    (46) if_statement -> IF expression THEN statement . ELSIF statement ENDIF
+    (47) if_statement -> IF expression THEN statement . ENDIF
+
+    ELSE            shift and go to state 112
+    ELSIF           shift and go to state 114
+    ENDIF           shift and go to state 113
+
+
+state 90
+
+    (53) expression -> expression and_or expression_m .
+    (56) expression_m -> expression_m . sign expression_s
+    (63) sign -> . PLUS
+    (64) sign -> . MINUS
+    (65) sign -> . EQ
+    (66) sign -> . NE
+    (67) sign -> . LT
+    (68) sign -> . LE
+    (69) sign -> . GT
+    (70) sign -> . GE
+
+    THEN            reduce using rule 53 (expression -> expression and_or expression_m .)
+    AND             reduce using rule 53 (expression -> expression and_or expression_m .)
+    OR              reduce using rule 53 (expression -> expression and_or expression_m .)
+    LOOP            reduce using rule 53 (expression -> expression and_or expression_m .)
+    SEMI            reduce using rule 53 (expression -> expression and_or expression_m .)
+    $end            reduce using rule 53 (expression -> expression and_or expression_m .)
+    END             reduce using rule 53 (expression -> expression and_or expression_m .)
+    UNTIL           reduce using rule 53 (expression -> expression and_or expression_m .)
+    TO              reduce using rule 53 (expression -> expression and_or expression_m .)
+    DOWNTO          reduce using rule 53 (expression -> expression and_or expression_m .)
+    ELSE            reduce using rule 53 (expression -> expression and_or expression_m .)
+    ELSIF           reduce using rule 53 (expression -> expression and_or expression_m .)
+    ENDIF           reduce using rule 53 (expression -> expression and_or expression_m .)
+    ENDLOOP         reduce using rule 53 (expression -> expression and_or expression_m .)
+    RPAREN          reduce using rule 53 (expression -> expression and_or expression_m .)
+    COMMA           reduce using rule 53 (expression -> expression and_or expression_m .)
+    PLUS            shift and go to state 57
+    MINUS           shift and go to state 58
+    EQ              shift and go to state 59
+    NE              shift and go to state 60
+    LT              shift and go to state 61
+    LE              shift and go to state 62
+    GT              shift and go to state 63
+    GE              shift and go to state 64
+
+    sign                           shift and go to state 56
+
+state 91
+
+    (56) expression_m -> expression_m sign expression_s .
+    (58) expression_s -> expression_s . psign element
+    (61) psign -> . TIMES
+    (62) psign -> . DIV
+
+    PLUS            reduce using rule 56 (expression_m -> expression_m sign expression_s .)
+    MINUS           reduce using rule 56 (expression_m -> expression_m sign expression_s .)
+    EQ              reduce using rule 56 (expression_m -> expression_m sign expression_s .)
+    NE              reduce using rule 56 (expression_m -> expression_m sign expression_s .)
+    LT              reduce using rule 56 (expression_m -> expression_m sign expression_s .)
+    LE              reduce using rule 56 (expression_m -> expression_m sign expression_s .)
+    GT              reduce using rule 56 (expression_m -> expression_m sign expression_s .)
+    GE              reduce using rule 56 (expression_m -> expression_m sign expression_s .)
+    THEN            reduce using rule 56 (expression_m -> expression_m sign expression_s .)
+    AND             reduce using rule 56 (expression_m -> expression_m sign expression_s .)
+    OR              reduce using rule 56 (expression_m -> expression_m sign expression_s .)
+    LOOP            reduce using rule 56 (expression_m -> expression_m sign expression_s .)
+    SEMI            reduce using rule 56 (expression_m -> expression_m sign expression_s .)
+    $end            reduce using rule 56 (expression_m -> expression_m sign expression_s .)
+    END             reduce using rule 56 (expression_m -> expression_m sign expression_s .)
+    UNTIL           reduce using rule 56 (expression_m -> expression_m sign expression_s .)
+    TO              reduce using rule 56 (expression_m -> expression_m sign expression_s .)
+    DOWNTO          reduce using rule 56 (expression_m -> expression_m sign expression_s .)
+    ELSE            reduce using rule 56 (expression_m -> expression_m sign expression_s .)
+    ELSIF           reduce using rule 56 (expression_m -> expression_m sign expression_s .)
+    ENDIF           reduce using rule 56 (expression_m -> expression_m sign expression_s .)
+    ENDLOOP         reduce using rule 56 (expression_m -> expression_m sign expression_s .)
+    RPAREN          reduce using rule 56 (expression_m -> expression_m sign expression_s .)
+    COMMA           reduce using rule 56 (expression_m -> expression_m sign expression_s .)
+    TIMES           shift and go to state 66
+    DIV             shift and go to state 67
+
+    psign                          shift and go to state 65
+
+state 92
+
+    (58) expression_s -> expression_s psign element .
+
+    TIMES           reduce using rule 58 (expression_s -> expression_s psign element .)
+    DIV             reduce using rule 58 (expression_s -> expression_s psign element .)
+    PLUS            reduce using rule 58 (expression_s -> expression_s psign element .)
+    MINUS           reduce using rule 58 (expression_s -> expression_s psign element .)
+    EQ              reduce using rule 58 (expression_s -> expression_s psign element .)
+    NE              reduce using rule 58 (expression_s -> expression_s psign element .)
+    LT              reduce using rule 58 (expression_s -> expression_s psign element .)
+    LE              reduce using rule 58 (expression_s -> expression_s psign element .)
+    GT              reduce using rule 58 (expression_s -> expression_s psign element .)
+    GE              reduce using rule 58 (expression_s -> expression_s psign element .)
+    THEN            reduce using rule 58 (expression_s -> expression_s psign element .)
+    AND             reduce using rule 58 (expression_s -> expression_s psign element .)
+    OR              reduce using rule 58 (expression_s -> expression_s psign element .)
+    LOOP            reduce using rule 58 (expression_s -> expression_s psign element .)
+    SEMI            reduce using rule 58 (expression_s -> expression_s psign element .)
+    $end            reduce using rule 58 (expression_s -> expression_s psign element .)
+    END             reduce using rule 58 (expression_s -> expression_s psign element .)
+    UNTIL           reduce using rule 58 (expression_s -> expression_s psign element .)
+    TO              reduce using rule 58 (expression_s -> expression_s psign element .)
+    DOWNTO          reduce using rule 58 (expression_s -> expression_s psign element .)
+    ELSE            reduce using rule 58 (expression_s -> expression_s psign element .)
+    ELSIF           reduce using rule 58 (expression_s -> expression_s psign element .)
+    ENDIF           reduce using rule 58 (expression_s -> expression_s psign element .)
+    ENDLOOP         reduce using rule 58 (expression_s -> expression_s psign element .)
+    RPAREN          reduce using rule 58 (expression_s -> expression_s psign element .)
+    COMMA           reduce using rule 58 (expression_s -> expression_s psign element .)
+
+
+state 93
+
+    (75) element -> LPAREN expression RPAREN .
+
+    TIMES           reduce using rule 75 (element -> LPAREN expression RPAREN .)
+    DIV             reduce using rule 75 (element -> LPAREN expression RPAREN .)
+    PLUS            reduce using rule 75 (element -> LPAREN expression RPAREN .)
+    MINUS           reduce using rule 75 (element -> LPAREN expression RPAREN .)
+    EQ              reduce using rule 75 (element -> LPAREN expression RPAREN .)
+    NE              reduce using rule 75 (element -> LPAREN expression RPAREN .)
+    LT              reduce using rule 75 (element -> LPAREN expression RPAREN .)
+    LE              reduce using rule 75 (element -> LPAREN expression RPAREN .)
+    GT              reduce using rule 75 (element -> LPAREN expression RPAREN .)
+    GE              reduce using rule 75 (element -> LPAREN expression RPAREN .)
+    THEN            reduce using rule 75 (element -> LPAREN expression RPAREN .)
+    AND             reduce using rule 75 (element -> LPAREN expression RPAREN .)
+    OR              reduce using rule 75 (element -> LPAREN expression RPAREN .)
+    LOOP            reduce using rule 75 (element -> LPAREN expression RPAREN .)
+    SEMI            reduce using rule 75 (element -> LPAREN expression RPAREN .)
+    $end            reduce using rule 75 (element -> LPAREN expression RPAREN .)
+    END             reduce using rule 75 (element -> LPAREN expression RPAREN .)
+    UNTIL           reduce using rule 75 (element -> LPAREN expression RPAREN .)
+    TO              reduce using rule 75 (element -> LPAREN expression RPAREN .)
+    DOWNTO          reduce using rule 75 (element -> LPAREN expression RPAREN .)
+    ELSE            reduce using rule 75 (element -> LPAREN expression RPAREN .)
+    ELSIF           reduce using rule 75 (element -> LPAREN expression RPAREN .)
+    ENDIF           reduce using rule 75 (element -> LPAREN expression RPAREN .)
+    ENDLOOP         reduce using rule 75 (element -> LPAREN expression RPAREN .)
+    RPAREN          reduce using rule 75 (element -> LPAREN expression RPAREN .)
+    COMMA           reduce using rule 75 (element -> LPAREN expression RPAREN .)
+
+
+state 94
+
+    (48) while_statement -> WHILE expression LOOP statement . ENDLOOP
+
+    ENDLOOP         shift and go to state 115
+
+
+state 95
+
+    (49) repeat_statement -> REPEAT statement UNTIL expression .
+    (53) expression -> expression . and_or expression_m
+    (59) and_or -> . AND
+    (60) and_or -> . OR
+
+    SEMI            reduce using rule 49 (repeat_statement -> REPEAT statement UNTIL expression .)
+    $end            reduce using rule 49 (repeat_statement -> REPEAT statement UNTIL expression .)
+    END             reduce using rule 49 (repeat_statement -> REPEAT statement UNTIL expression .)
+    UNTIL           reduce using rule 49 (repeat_statement -> REPEAT statement UNTIL expression .)
+    ELSE            reduce using rule 49 (repeat_statement -> REPEAT statement UNTIL expression .)
+    ELSIF           reduce using rule 49 (repeat_statement -> REPEAT statement UNTIL expression .)
+    ENDIF           reduce using rule 49 (repeat_statement -> REPEAT statement UNTIL expression .)
+    ENDLOOP         reduce using rule 49 (repeat_statement -> REPEAT statement UNTIL expression .)
+    AND             shift and go to state 54
+    OR              shift and go to state 55
+
+    and_or                         shift and go to state 53
+
+state 96
+
+    (50) for_statement -> FOR assignment_statement TO expression . LOOP statement ENDLOOP
+    (53) expression -> expression . and_or expression_m
+    (59) and_or -> . AND
+    (60) and_or -> . OR
+
+    LOOP            shift and go to state 116
+    AND             shift and go to state 54
+    OR              shift and go to state 55
+
+    and_or                         shift and go to state 53
+
+state 97
+
+    (51) for_statement -> FOR assignment_statement DOWNTO expression . LOOP statement ENDLOOP
+    (53) expression -> expression . and_or expression_m
+    (59) and_or -> . AND
+    (60) and_or -> . OR
+
+    LOOP            shift and go to state 117
+    AND             shift and go to state 54
+    OR              shift and go to state 55
+
+    and_or                         shift and go to state 53
+
+state 98
+
+    (4) block -> variable_declaration_part procedure_or_function statement_part .
+
+    DOT             reduce using rule 4 (block -> variable_declaration_part procedure_or_function statement_part .)
+    SEMI            reduce using rule 4 (block -> variable_declaration_part procedure_or_function statement_part .)
+
+
+state 99
+
+    (12) procedure_or_function -> proc_or_func_declaration SEMI . procedure_or_function
+    (12) procedure_or_function -> . proc_or_func_declaration SEMI procedure_or_function
+    (13) procedure_or_function -> .
+    (14) proc_or_func_declaration -> . procedure_declaration
+    (15) proc_or_func_declaration -> . function_declaration
+    (16) procedure_declaration -> . procedure_heading SEMI block
+    (19) function_declaration -> . function_heading SEMI block
+    (17) procedure_heading -> . PROCEDURE identifier
+    (18) procedure_heading -> . PROCEDURE identifier LPAREN parameter_list RPAREN
+    (20) function_heading -> . FUNCTION type
+    (21) function_heading -> . FUNCTION identifier COLON type
+    (22) function_heading -> . FUNCTION identifier LPAREN parameter_list RPAREN COLON type
+
+    BEGIN           reduce using rule 13 (procedure_or_function -> .)
+    PROCEDURE       shift and go to state 81
+    FUNCTION        shift and go to state 82
+
+    proc_or_func_declaration       shift and go to state 76
+    procedure_or_function          shift and go to state 118
+    procedure_declaration          shift and go to state 77
+    function_declaration           shift and go to state 78
+    procedure_heading              shift and go to state 79
+    function_heading               shift and go to state 80
+
+state 100
+
+    (16) procedure_declaration -> procedure_heading SEMI . block
+    (4) block -> . variable_declaration_part procedure_or_function statement_part
+    (5) variable_declaration_part -> . VAR variable_declaration_list
+    (6) variable_declaration_part -> .
+
+    VAR             shift and go to state 45
+    PROCEDURE       reduce using rule 6 (variable_declaration_part -> .)
+    FUNCTION        reduce using rule 6 (variable_declaration_part -> .)
+    BEGIN           reduce using rule 6 (variable_declaration_part -> .)
+
+    block                          shift and go to state 119
+    variable_declaration_part      shift and go to state 44
+
+state 101
+
+    (19) function_declaration -> function_heading SEMI . block
+    (4) block -> . variable_declaration_part procedure_or_function statement_part
+    (5) variable_declaration_part -> . VAR variable_declaration_list
+    (6) variable_declaration_part -> .
+
+    VAR             shift and go to state 45
+    PROCEDURE       reduce using rule 6 (variable_declaration_part -> .)
+    FUNCTION        reduce using rule 6 (variable_declaration_part -> .)
+    BEGIN           reduce using rule 6 (variable_declaration_part -> .)
+
+    block                          shift and go to state 120
+    variable_declaration_part      shift and go to state 44
+
+state 102
+
+    (17) procedure_heading -> PROCEDURE identifier .
+    (18) procedure_heading -> PROCEDURE identifier . LPAREN parameter_list RPAREN
+
+    SEMI            reduce using rule 17 (procedure_heading -> PROCEDURE identifier .)
+    LPAREN          shift and go to state 121
+
+
+state 103
+
+    (20) function_heading -> FUNCTION type .
+
+    SEMI            reduce using rule 20 (function_heading -> FUNCTION type .)
+
+
+state 104
+
+    (21) function_heading -> FUNCTION identifier . COLON type
+    (22) function_heading -> FUNCTION identifier . LPAREN parameter_list RPAREN COLON type
+
+    COLON           shift and go to state 122
+    LPAREN          shift and go to state 123
+
+
+state 105
+
+    (26) type -> STRING .
+
+    SEMI            reduce using rule 26 (type -> STRING .)
+    COMMA           reduce using rule 26 (type -> STRING .)
+    RPAREN          reduce using rule 26 (type -> STRING .)
+
+
+state 106
+
+    (27) type -> INTEGER .
+
+    SEMI            reduce using rule 27 (type -> INTEGER .)
+    COMMA           reduce using rule 27 (type -> INTEGER .)
+    RPAREN          reduce using rule 27 (type -> INTEGER .)
+
+
+state 107
+
+    (28) type -> CHAR .
+
+    SEMI            reduce using rule 28 (type -> CHAR .)
+    COMMA           reduce using rule 28 (type -> CHAR .)
+    RPAREN          reduce using rule 28 (type -> CHAR .)
+
+
+state 108
+
+    (7) variable_declaration_list -> variable_declaration variable_declaration_list .
+
+    PROCEDURE       reduce using rule 7 (variable_declaration_list -> variable_declaration variable_declaration_list .)
+    FUNCTION        reduce using rule 7 (variable_declaration_list -> variable_declaration variable_declaration_list .)
+    BEGIN           reduce using rule 7 (variable_declaration_list -> variable_declaration variable_declaration_list .)
+
+
+state 109
+
+    (9) variable_declaration -> variable_identifier COLON . type SEMI
+    (26) type -> . STRING
+    (27) type -> . INTEGER
+    (28) type -> . CHAR
+
+    STRING          shift and go to state 105
+    INTEGER         shift and go to state 106
+    CHAR            shift and go to state 107
+
+    type                           shift and go to state 124
+
+state 110
+
+    (10) variable_identifier -> identifier COMMA . variable_identifier
+    (10) variable_identifier -> . identifier COMMA variable_identifier
+    (11) variable_identifier -> . identifier
+    (77) identifier -> . ID
+
+    ID              shift and go to state 19
+
+    identifier                     shift and go to state 86
+    variable_identifier            shift and go to state 125
+
+state 111
+
+    (42) param_list -> param_list COMMA param .
+
+    RPAREN          reduce using rule 42 (param_list -> param_list COMMA param .)
+    COMMA           reduce using rule 42 (param_list -> param_list COMMA param .)
+
+
+state 112
+
+    (45) if_statement -> IF expression THEN statement ELSE . statement ENDIF
+    (32) statement -> . assignment_statement
+    (33) statement -> . statement_part
+    (34) statement -> . if_statement
+    (35) statement -> . while_statement
+    (36) statement -> . repeat_statement
+    (37) statement -> . for_statement
+    (38) statement -> . procedure_or_function_call
+    (39) statement -> .
+    (52) assignment_statement -> . identifier COLEQ expression
+    (29) statement_part -> . BEGIN statement_sequence END
+    (45) if_statement -> . IF expression THEN statement ELSE statement ENDIF
+    (46) if_statement -> . IF expression THEN statement ELSIF statement ENDIF
+    (47) if_statement -> . IF expression THEN statement ENDIF
+    (48) while_statement -> . WHILE expression LOOP statement ENDLOOP
+    (49) repeat_statement -> . REPEAT statement UNTIL expression
+    (50) for_statement -> . FOR assignment_statement TO expression LOOP statement ENDLOOP
+    (51) for_statement -> . FOR assignment_statement DOWNTO expression LOOP statement ENDLOOP
+    (40) procedure_or_function_call -> . identifier LPAREN param_list RPAREN
+    (41) procedure_or_function_call -> . identifier
+    (77) identifier -> . ID
+
+    ENDIF           reduce using rule 39 (statement -> .)
+    BEGIN           shift and go to state 14
+    IF              shift and go to state 15
+    WHILE           shift and go to state 16
+    REPEAT          shift and go to state 17
+    FOR             shift and go to state 18
+    ID              shift and go to state 19
+
+    statement                      shift and go to state 126
+    assignment_statement           shift and go to state 7
+    statement_part                 shift and go to state 8
+    if_statement                   shift and go to state 9
+    while_statement                shift and go to state 10
+    repeat_statement               shift and go to state 11
+    for_statement                  shift and go to state 12
+    procedure_or_function_call     shift and go to state 13
+    identifier                     shift and go to state 5
+
+state 113
+
+    (47) if_statement -> IF expression THEN statement ENDIF .
+
+    SEMI            reduce using rule 47 (if_statement -> IF expression THEN statement ENDIF .)
+    $end            reduce using rule 47 (if_statement -> IF expression THEN statement ENDIF .)
+    END             reduce using rule 47 (if_statement -> IF expression THEN statement ENDIF .)
+    UNTIL           reduce using rule 47 (if_statement -> IF expression THEN statement ENDIF .)
+    ELSE            reduce using rule 47 (if_statement -> IF expression THEN statement ENDIF .)
+    ELSIF           reduce using rule 47 (if_statement -> IF expression THEN statement ENDIF .)
+    ENDIF           reduce using rule 47 (if_statement -> IF expression THEN statement ENDIF .)
+    ENDLOOP         reduce using rule 47 (if_statement -> IF expression THEN statement ENDIF .)
+
+
+state 114
+
+    (46) if_statement -> IF expression THEN statement ELSIF . statement ENDIF
+    (32) statement -> . assignment_statement
+    (33) statement -> . statement_part
+    (34) statement -> . if_statement
+    (35) statement -> . while_statement
+    (36) statement -> . repeat_statement
+    (37) statement -> . for_statement
+    (38) statement -> . procedure_or_function_call
+    (39) statement -> .
+    (52) assignment_statement -> . identifier COLEQ expression
+    (29) statement_part -> . BEGIN statement_sequence END
+    (45) if_statement -> . IF expression THEN statement ELSE statement ENDIF
+    (46) if_statement -> . IF expression THEN statement ELSIF statement ENDIF
+    (47) if_statement -> . IF expression THEN statement ENDIF
+    (48) while_statement -> . WHILE expression LOOP statement ENDLOOP
+    (49) repeat_statement -> . REPEAT statement UNTIL expression
+    (50) for_statement -> . FOR assignment_statement TO expression LOOP statement ENDLOOP
+    (51) for_statement -> . FOR assignment_statement DOWNTO expression LOOP statement ENDLOOP
+    (40) procedure_or_function_call -> . identifier LPAREN param_list RPAREN
+    (41) procedure_or_function_call -> . identifier
+    (77) identifier -> . ID
+
+    ENDIF           reduce using rule 39 (statement -> .)
+    BEGIN           shift and go to state 14
+    IF              shift and go to state 15
+    WHILE           shift and go to state 16
+    REPEAT          shift and go to state 17
+    FOR             shift and go to state 18
+    ID              shift and go to state 19
+
+    statement                      shift and go to state 127
+    assignment_statement           shift and go to state 7
+    statement_part                 shift and go to state 8
+    if_statement                   shift and go to state 9
+    while_statement                shift and go to state 10
+    repeat_statement               shift and go to state 11
+    for_statement                  shift and go to state 12
+    procedure_or_function_call     shift and go to state 13
+    identifier                     shift and go to state 5
+
+state 115
+
+    (48) while_statement -> WHILE expression LOOP statement ENDLOOP .
+
+    SEMI            reduce using rule 48 (while_statement -> WHILE expression LOOP statement ENDLOOP .)
+    $end            reduce using rule 48 (while_statement -> WHILE expression LOOP statement ENDLOOP .)
+    END             reduce using rule 48 (while_statement -> WHILE expression LOOP statement ENDLOOP .)
+    UNTIL           reduce using rule 48 (while_statement -> WHILE expression LOOP statement ENDLOOP .)
+    ELSE            reduce using rule 48 (while_statement -> WHILE expression LOOP statement ENDLOOP .)
+    ELSIF           reduce using rule 48 (while_statement -> WHILE expression LOOP statement ENDLOOP .)
+    ENDIF           reduce using rule 48 (while_statement -> WHILE expression LOOP statement ENDLOOP .)
+    ENDLOOP         reduce using rule 48 (while_statement -> WHILE expression LOOP statement ENDLOOP .)
+
+
+state 116
+
+    (50) for_statement -> FOR assignment_statement TO expression LOOP . statement ENDLOOP
+    (32) statement -> . assignment_statement
+    (33) statement -> . statement_part
+    (34) statement -> . if_statement
+    (35) statement -> . while_statement
+    (36) statement -> . repeat_statement
+    (37) statement -> . for_statement
+    (38) statement -> . procedure_or_function_call
+    (39) statement -> .
+    (52) assignment_statement -> . identifier COLEQ expression
+    (29) statement_part -> . BEGIN statement_sequence END
+    (45) if_statement -> . IF expression THEN statement ELSE statement ENDIF
+    (46) if_statement -> . IF expression THEN statement ELSIF statement ENDIF
+    (47) if_statement -> . IF expression THEN statement ENDIF
+    (48) while_statement -> . WHILE expression LOOP statement ENDLOOP
+    (49) repeat_statement -> . REPEAT statement UNTIL expression
+    (50) for_statement -> . FOR assignment_statement TO expression LOOP statement ENDLOOP
+    (51) for_statement -> . FOR assignment_statement DOWNTO expression LOOP statement ENDLOOP
+    (40) procedure_or_function_call -> . identifier LPAREN param_list RPAREN
+    (41) procedure_or_function_call -> . identifier
+    (77) identifier -> . ID
+
+    ENDLOOP         reduce using rule 39 (statement -> .)
+    BEGIN           shift and go to state 14
+    IF              shift and go to state 15
+    WHILE           shift and go to state 16
+    REPEAT          shift and go to state 17
+    FOR             shift and go to state 18
+    ID              shift and go to state 19
+
+    assignment_statement           shift and go to state 7
+    statement                      shift and go to state 128
+    statement_part                 shift and go to state 8
+    if_statement                   shift and go to state 9
+    while_statement                shift and go to state 10
+    repeat_statement               shift and go to state 11
+    for_statement                  shift and go to state 12
+    procedure_or_function_call     shift and go to state 13
+    identifier                     shift and go to state 5
+
+state 117
+
+    (51) for_statement -> FOR assignment_statement DOWNTO expression LOOP . statement ENDLOOP
+    (32) statement -> . assignment_statement
+    (33) statement -> . statement_part
+    (34) statement -> . if_statement
+    (35) statement -> . while_statement
+    (36) statement -> . repeat_statement
+    (37) statement -> . for_statement
+    (38) statement -> . procedure_or_function_call
+    (39) statement -> .
+    (52) assignment_statement -> . identifier COLEQ expression
+    (29) statement_part -> . BEGIN statement_sequence END
+    (45) if_statement -> . IF expression THEN statement ELSE statement ENDIF
+    (46) if_statement -> . IF expression THEN statement ELSIF statement ENDIF
+    (47) if_statement -> . IF expression THEN statement ENDIF
+    (48) while_statement -> . WHILE expression LOOP statement ENDLOOP
+    (49) repeat_statement -> . REPEAT statement UNTIL expression
+    (50) for_statement -> . FOR assignment_statement TO expression LOOP statement ENDLOOP
+    (51) for_statement -> . FOR assignment_statement DOWNTO expression LOOP statement ENDLOOP
+    (40) procedure_or_function_call -> . identifier LPAREN param_list RPAREN
+    (41) procedure_or_function_call -> . identifier
+    (77) identifier -> . ID
+
+    ENDLOOP         reduce using rule 39 (statement -> .)
+    BEGIN           shift and go to state 14
+    IF              shift and go to state 15
+    WHILE           shift and go to state 16
+    REPEAT          shift and go to state 17
+    FOR             shift and go to state 18
+    ID              shift and go to state 19
+
+    assignment_statement           shift and go to state 7
+    statement                      shift and go to state 129
+    statement_part                 shift and go to state 8
+    if_statement                   shift and go to state 9
+    while_statement                shift and go to state 10
+    repeat_statement               shift and go to state 11
+    for_statement                  shift and go to state 12
+    procedure_or_function_call     shift and go to state 13
+    identifier                     shift and go to state 5
+
+state 118
+
+    (12) procedure_or_function -> proc_or_func_declaration SEMI procedure_or_function .
+
+    BEGIN           reduce using rule 12 (procedure_or_function -> proc_or_func_declaration SEMI procedure_or_function .)
+
+
+state 119
+
+    (16) procedure_declaration -> procedure_heading SEMI block .
+
+    SEMI            reduce using rule 16 (procedure_declaration -> procedure_heading SEMI block .)
+
+
+state 120
+
+    (19) function_declaration -> function_heading SEMI block .
+
+    SEMI            reduce using rule 19 (function_declaration -> function_heading SEMI block .)
+
+
+state 121
+
+    (18) procedure_heading -> PROCEDURE identifier LPAREN . parameter_list RPAREN
+    (23) parameter_list -> . parameter COMMA parameter_list
+    (24) parameter_list -> . parameter
+    (25) parameter -> . identifier COLON type
+    (77) identifier -> . ID
+
+    ID              shift and go to state 19
+
+    identifier                     shift and go to state 130
+    parameter_list                 shift and go to state 131
+    parameter                      shift and go to state 132
+
+state 122
+
+    (21) function_heading -> FUNCTION identifier COLON . type
+    (26) type -> . STRING
+    (27) type -> . INTEGER
+    (28) type -> . CHAR
+
+    STRING          shift and go to state 105
+    INTEGER         shift and go to state 106
+    CHAR            shift and go to state 107
+
+    type                           shift and go to state 133
+
+state 123
+
+    (22) function_heading -> FUNCTION identifier LPAREN . parameter_list RPAREN COLON type
+    (23) parameter_list -> . parameter COMMA parameter_list
+    (24) parameter_list -> . parameter
+    (25) parameter -> . identifier COLON type
+    (77) identifier -> . ID
+
+    ID              shift and go to state 19
+
+    identifier                     shift and go to state 130
+    parameter_list                 shift and go to state 134
+    parameter                      shift and go to state 132
+
+state 124
+
+    (9) variable_declaration -> variable_identifier COLON type . SEMI
+
+    SEMI            shift and go to state 135
+
+
+state 125
+
+    (10) variable_identifier -> identifier COMMA variable_identifier .
+
+    COLON           reduce using rule 10 (variable_identifier -> identifier COMMA variable_identifier .)
+
+
+state 126
+
+    (45) if_statement -> IF expression THEN statement ELSE statement . ENDIF
+
+    ENDIF           shift and go to state 136
+
+
+state 127
+
+    (46) if_statement -> IF expression THEN statement ELSIF statement . ENDIF
+
+    ENDIF           shift and go to state 137
+
+
+state 128
+
+    (50) for_statement -> FOR assignment_statement TO expression LOOP statement . ENDLOOP
+
+    ENDLOOP         shift and go to state 138
+
+
+state 129
+
+    (51) for_statement -> FOR assignment_statement DOWNTO expression LOOP statement . ENDLOOP
+
+    ENDLOOP         shift and go to state 139
+
+
+state 130
+
+    (25) parameter -> identifier . COLON type
+
+    COLON           shift and go to state 140
+
+
+state 131
+
+    (18) procedure_heading -> PROCEDURE identifier LPAREN parameter_list . RPAREN
+
+    RPAREN          shift and go to state 141
+
+
+state 132
+
+    (23) parameter_list -> parameter . COMMA parameter_list
+    (24) parameter_list -> parameter .
+
+    COMMA           shift and go to state 142
+    RPAREN          reduce using rule 24 (parameter_list -> parameter .)
+
+
+state 133
+
+    (21) function_heading -> FUNCTION identifier COLON type .
+
+    SEMI            reduce using rule 21 (function_heading -> FUNCTION identifier COLON type .)
+
+
+state 134
+
+    (22) function_heading -> FUNCTION identifier LPAREN parameter_list . RPAREN COLON type
+
+    RPAREN          shift and go to state 143
+
+
+state 135
+
+    (9) variable_declaration -> variable_identifier COLON type SEMI .
+
+    ID              reduce using rule 9 (variable_declaration -> variable_identifier COLON type SEMI .)
+    PROCEDURE       reduce using rule 9 (variable_declaration -> variable_identifier COLON type SEMI .)
+    FUNCTION        reduce using rule 9 (variable_declaration -> variable_identifier COLON type SEMI .)
+    BEGIN           reduce using rule 9 (variable_declaration -> variable_identifier COLON type SEMI .)
+
+
+state 136
+
+    (45) if_statement -> IF expression THEN statement ELSE statement ENDIF .
+
+    SEMI            reduce using rule 45 (if_statement -> IF expression THEN statement ELSE statement ENDIF .)
+    $end            reduce using rule 45 (if_statement -> IF expression THEN statement ELSE statement ENDIF .)
+    END             reduce using rule 45 (if_statement -> IF expression THEN statement ELSE statement ENDIF .)
+    UNTIL           reduce using rule 45 (if_statement -> IF expression THEN statement ELSE statement ENDIF .)
+    ELSE            reduce using rule 45 (if_statement -> IF expression THEN statement ELSE statement ENDIF .)
+    ELSIF           reduce using rule 45 (if_statement -> IF expression THEN statement ELSE statement ENDIF .)
+    ENDIF           reduce using rule 45 (if_statement -> IF expression THEN statement ELSE statement ENDIF .)
+    ENDLOOP         reduce using rule 45 (if_statement -> IF expression THEN statement ELSE statement ENDIF .)
+
+
+state 137
+
+    (46) if_statement -> IF expression THEN statement ELSIF statement ENDIF .
+
+    SEMI            reduce using rule 46 (if_statement -> IF expression THEN statement ELSIF statement ENDIF .)
+    $end            reduce using rule 46 (if_statement -> IF expression THEN statement ELSIF statement ENDIF .)
+    END             reduce using rule 46 (if_statement -> IF expression THEN statement ELSIF statement ENDIF .)
+    UNTIL           reduce using rule 46 (if_statement -> IF expression THEN statement ELSIF statement ENDIF .)
+    ELSE            reduce using rule 46 (if_statement -> IF expression THEN statement ELSIF statement ENDIF .)
+    ELSIF           reduce using rule 46 (if_statement -> IF expression THEN statement ELSIF statement ENDIF .)
+    ENDIF           reduce using rule 46 (if_statement -> IF expression THEN statement ELSIF statement ENDIF .)
+    ENDLOOP         reduce using rule 46 (if_statement -> IF expression THEN statement ELSIF statement ENDIF .)
+
+
+state 138
+
+    (50) for_statement -> FOR assignment_statement TO expression LOOP statement ENDLOOP .
+
+    SEMI            reduce using rule 50 (for_statement -> FOR assignment_statement TO expression LOOP statement ENDLOOP .)
+    $end            reduce using rule 50 (for_statement -> FOR assignment_statement TO expression LOOP statement ENDLOOP .)
+    END             reduce using rule 50 (for_statement -> FOR assignment_statement TO expression LOOP statement ENDLOOP .)
+    UNTIL           reduce using rule 50 (for_statement -> FOR assignment_statement TO expression LOOP statement ENDLOOP .)
+    ELSE            reduce using rule 50 (for_statement -> FOR assignment_statement TO expression LOOP statement ENDLOOP .)
+    ELSIF           reduce using rule 50 (for_statement -> FOR assignment_statement TO expression LOOP statement ENDLOOP .)
+    ENDIF           reduce using rule 50 (for_statement -> FOR assignment_statement TO expression LOOP statement ENDLOOP .)
+    ENDLOOP         reduce using rule 50 (for_statement -> FOR assignment_statement TO expression LOOP statement ENDLOOP .)
+
+
+state 139
+
+    (51) for_statement -> FOR assignment_statement DOWNTO expression LOOP statement ENDLOOP .
+
+    SEMI            reduce using rule 51 (for_statement -> FOR assignment_statement DOWNTO expression LOOP statement ENDLOOP .)
+    $end            reduce using rule 51 (for_statement -> FOR assignment_statement DOWNTO expression LOOP statement ENDLOOP .)
+    END             reduce using rule 51 (for_statement -> FOR assignment_statement DOWNTO expression LOOP statement ENDLOOP .)
+    UNTIL           reduce using rule 51 (for_statement -> FOR assignment_statement DOWNTO expression LOOP statement ENDLOOP .)
+    ELSE            reduce using rule 51 (for_statement -> FOR assignment_statement DOWNTO expression LOOP statement ENDLOOP .)
+    ELSIF           reduce using rule 51 (for_statement -> FOR assignment_statement DOWNTO expression LOOP statement ENDLOOP .)
+    ENDIF           reduce using rule 51 (for_statement -> FOR assignment_statement DOWNTO expression LOOP statement ENDLOOP .)
+    ENDLOOP         reduce using rule 51 (for_statement -> FOR assignment_statement DOWNTO expression LOOP statement ENDLOOP .)
+
+
+state 140
+
+    (25) parameter -> identifier COLON . type
+    (26) type -> . STRING
+    (27) type -> . INTEGER
+    (28) type -> . CHAR
+
+    STRING          shift and go to state 105
+    INTEGER         shift and go to state 106
+    CHAR            shift and go to state 107
+
+    type                           shift and go to state 144
+
+state 141
+
+    (18) procedure_heading -> PROCEDURE identifier LPAREN parameter_list RPAREN .
+
+    SEMI            reduce using rule 18 (procedure_heading -> PROCEDURE identifier LPAREN parameter_list RPAREN .)
+
+
+state 142
+
+    (23) parameter_list -> parameter COMMA . parameter_list
+    (23) parameter_list -> . parameter COMMA parameter_list
+    (24) parameter_list -> . parameter
+    (25) parameter -> . identifier COLON type
+    (77) identifier -> . ID
+
+    ID              shift and go to state 19
+
+    parameter                      shift and go to state 132
+    parameter_list                 shift and go to state 145
+    identifier                     shift and go to state 130
+
+state 143
+
+    (22) function_heading -> FUNCTION identifier LPAREN parameter_list RPAREN . COLON type
+
+    COLON           shift and go to state 146
+
+
+state 144
+
+    (25) parameter -> identifier COLON type .
+
+    COMMA           reduce using rule 25 (parameter -> identifier COLON type .)
+    RPAREN          reduce using rule 25 (parameter -> identifier COLON type .)
+
+
+state 145
+
+    (23) parameter_list -> parameter COMMA parameter_list .
+
+    RPAREN          reduce using rule 23 (parameter_list -> parameter COMMA parameter_list .)
+
+
+state 146
+
+    (22) function_heading -> FUNCTION identifier LPAREN parameter_list RPAREN COLON . type
+    (26) type -> . STRING
+    (27) type -> . INTEGER
+    (28) type -> . CHAR
+
+    STRING          shift and go to state 105
+    INTEGER         shift and go to state 106
+    CHAR            shift and go to state 107
+
+    type                           shift and go to state 147
+
+state 147
+
+    (22) function_heading -> FUNCTION identifier LPAREN parameter_list RPAREN COLON type .
+
+    SEMI            reduce using rule 22 (function_heading -> FUNCTION identifier LPAREN parameter_list RPAREN COLON type .)
+
