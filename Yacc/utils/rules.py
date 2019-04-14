@@ -1,10 +1,6 @@
 from .ast import Node
 import sys
 
-# META
-
-# start = 'block'
-
 precedence = (
     ('left', 'PLUS', 'MINUS'),
     ('left', 'TIMES'),
@@ -24,39 +20,39 @@ def p_program_start(args):
 		args[0] = Node('program',args[1],args[3])
 
 
-def p_header(t):
+def p_header(args):
     'header : PROGRAM identifier'
-    t[0] = t[2]
+    args[0] = args[2]
 
 
-def p_block(t):
+def p_block(args):
     """block : variable_declaration_part procedure_or_function statement_part
 	"""
-    t[0] = Node('block', t[1], t[2], t[3])
+    args[0] = Node('block', args[1], args[2], args[3])
 
 
-def p_variable_declaration_part(t):
+def p_variable_declaration_part(args):
     """variable_declaration_part : VAR variable_declaration_list
 	 |
 	"""
-    if len(t) > 1:
-        t[0] = t[2]
+    if len(args) > 1:
+        args[0] = args[2]
 
 
-def p_variable_declaration_list(t):
+def p_variable_declaration_list(args):
     """variable_declaration_list : variable_declaration variable_declaration_list
 	 | variable_declaration
 	"""
     # function and procedure missing here
-    if len(t) == 2:
-        t[0] = t[1]
+    if len(args) == 2:
+        args[0] = args[1]
     else:
-        t[0] = Node('var_list', t[1], t[2])
+        args[0] = Node('var_list', args[1], args[2])
 
 
-def p_variable_declaration(t):
+def p_variable_declaration(args):
     """variable_declaration : variable_identifier COLON type SEMI"""
-    t[0] = Node('var', t[1], t[3])
+    args[0] = Node('var', args[1], args[3])
 
 def p_variable_identifier(args):
 	"""variable_identifier : identifier COMMA variable_identifier
@@ -66,89 +62,89 @@ def p_variable_identifier(args):
 	else:
 		args[0] = Node('id_list', args[1])
 
-def p_procedure_or_function(t):
+def p_procedure_or_function(args):
     """procedure_or_function : proc_or_func_declaration SEMI procedure_or_function
 		| """
 
-    if len(t) == 4:
-        t[0] = Node('function_list', t[1], t[3])
+    if len(args) == 4:
+        args[0] = Node('function_list', args[1], args[3])
 
 
-def p_proc_or_func_declaration(t):
+def p_proc_or_func_declaration(args):
     """ proc_or_func_declaration : procedure_declaration
                | function_declaration """
-    t[0] = t[1]
+    args[0] = args[1]
 
 
-def p_procedure_declaration(t):
+def p_procedure_declaration(args):
     """procedure_declaration : procedure_heading SEMI block"""
-    t[0] = Node("procedure", t[1], t[3])
+    args[0] = Node("procedure", args[1], args[3])
 
 
-def p_procedure_heading(t):
+def p_procedure_heading(args):
     """ procedure_heading : PROCEDURE identifier
 	| PROCEDURE identifier LPAREN parameter_list RPAREN"""
 
-    if len(t) == 3:
-        t[0] = Node("procedure_head", t[2])
+    if len(args) == 3:
+        args[0] = Node("procedure_head", args[2])
     else:
-        t[0] = Node("procedure_head", t[2], t[4])
+        args[0] = Node("procedure_head", args[2], args[4])
 
 
-def p_function_declaration(t):
+def p_function_declaration(args):
     """ function_declaration : function_heading SEMI block"""
-    t[0] = Node('function', t[1], t[3])
+    args[0] = Node('function', args[1], args[3])
 
 
-def p_function_heading(t):
+def p_function_heading(args):
     """ function_heading : FUNCTION type
 	 	| FUNCTION identifier COLON type
 		| FUNCTION identifier LPAREN parameter_list RPAREN COLON type"""
-    if len(t) == 3:
-        t[0] = Node("function_head", t[2])
-    elif len(t) == 5:
-        t[0] = Node("function_head", t[2], t[3])
+    if len(args) == 3:
+        args[0] = Node("function_head", args[2])
+    elif len(args) == 5:
+        args[0] = Node("function_head", args[2], args[3])
     else:
-        t[0] = Node("function_head", t[2], t[4], t[7])
+        args[0] = Node("function_head", args[2], args[4], args[7])
 
 
-def p_parameter_list(t):
+def p_parameter_list(args):
     """ parameter_list : parameter COMMA parameter_list
 	| parameter"""
-    if len(t) == 4:
-        t[0] = Node("parameter_list", t[1], t[3])
+    if len(args) == 4:
+        args[0] = Node("parameter_list", args[1], args[3])
     else:
-        t[0] = t[1]
+        args[0] = args[1]
 
 
-def p_parameter(t):
+def p_parameter(args):
     """ parameter : identifier COLON type"""
-    t[0] = Node("parameter", t[1], t[3])
+    args[0] = Node("parameter", args[1], args[3])
 
 
-def p_type(t):
+def p_type(args):
     """ type : STRING
 	| INTEGER
 	| CHAR
 	"""
-    t[0] = Node('type', t[1].lower())
+    args[0] = Node('type', args[1].lower())
 
 
-def p_statement_part(t):
+def p_statement_part(args):
     """statement_part : BEGIN statement_sequence END"""
-    t[0] = t[2]
+    args[0] = args[2]
 
 
-def p_statement_sequence(t):
+def p_statement_sequence(args):
     """statement_sequence : statement SEMI statement_sequence
 	 | statement"""
-    if len(t) == 2:
-        t[0] = t[1]
+    if len(args) == 2:
+        args[0] = args[1]
     else:
-        t[0] = Node('statement_list', t[1], t[3])
+        args[0] = Node('statement_list', args[1], args[3])
 
 
-def p_statement(t):
+def p_statement(args):
     """statement : assignment_statement
 	 | statement_part
 	 | if_statement
@@ -158,109 +154,109 @@ def p_statement(t):
 	 | procedure_or_function_call
 	 |
 	"""
-    if len(t) > 1:
-        t[0] = t[1]
+    if len(args) > 1:
+        args[0] = args[1]
 
 
-def p_procedure_or_function_call(t):
+def p_procedure_or_function_call(args):
     """ procedure_or_function_call : identifier LPAREN param_list RPAREN
 	| identifier """
 
-    if len(t) == 2:
-        t[0] = Node("function_call", t[1])
+    if len(args) == 2:
+        args[0] = Node("function_call", args[1])
     else:
-        t[0] = Node("function_call", t[1], t[3])
+        args[0] = Node("function_call", args[1], args[3])
 
 
-def p_param_list(t):
+def p_param_list(args):
     """ param_list : param_list COMMA param
 	 | param """
-    if len(t) == 2:
-        t[0] = t[1]
+    if len(args) == 2:
+        args[0] = args[1]
     else:
-        t[0] = Node("parameter_list", t[1], t[3])
+        args[0] = Node("parameter_list", args[1], args[3])
 
 
-def p_param(t):
+def p_param(args):
     """ param : expression """
-    t[0] = Node("parameter", t[1])
+    args[0] = Node("parameter", args[1])
 
 
-def p_if_statement(t):
+def p_if_statement(args):
     """if_statement : IF expression THEN statement ELSE statement ENDIF
 	| IF expression THEN statement ELSIF statement ENDIF
 	| IF expression THEN statement ENDIF
 	"""
 
-    if len(t) == 5:
-        t[0] = Node('if', t[2], t[4])
+    if len(args) == 5:
+        args[0] = Node('if', args[2], args[4])
     else:
-        t[0] = Node('if', t[2], t[4], t[6])
+        args[0] = Node('if', args[2], args[4], args[6])
 
 
-def p_while_statement(t):
+def p_while_statement(args):
     """while_statement : WHILE expression LOOP statement ENDLOOP"""
-    t[0] = Node('while', t[2], t[4])
+    args[0] = Node('while', args[2], args[4])
 
 
-def p_repeat_statement(t):
+def p_repeat_statement(args):
     """repeat_statement : REPEAT statement UNTIL expression"""
-    t[0] = Node('repeat', t[2], t[4])
+    args[0] = Node('repeat', args[2], args[4])
 
 
-def p_for_statement(t):
+def p_for_statement(args):
     """for_statement : FOR assignment_statement TO expression LOOP statement ENDLOOP
 	| FOR assignment_statement DOWNTO expression LOOP statement ENDLOOP
 	"""
-    t[0] = Node('for', t[2], t[3], t[4], t[6])
+    args[0] = Node('for', args[2], args[3], args[4], args[6])
 
 
-def p_assignment_statement(t):
+def p_assignment_statement(args):
     """assignment_statement : identifier COLEQ expression"""
-    t[0] = Node('assign', t[1], t[3])
+    args[0] = Node('assign', args[1], args[3])
 
 
-def p_expression(t):
+def p_expression(args):
     """expression : expression and_or expression_m
 	| expression_m
 	"""
-    if len(t) == 2:
-        t[0] = t[1]
+    if len(args) == 2:
+        args[0] = args[1]
     else:
-        t[0] = Node('op', t[2], t[1], t[3])
+        args[0] = Node('op', args[2], args[1], args[3])
 
 
-def p_expression_m(t):
+def p_expression_m(args):
     """ expression_m : expression_s
 	| expression_m sign expression_s"""
-    if len(t) == 2:
-        t[0] = t[1]
+    if len(args) == 2:
+        args[0] = args[1]
     else:
-        t[0] = Node('op', t[2], t[1], t[3])
+        args[0] = Node('op', args[2], args[1], args[3])
 
 
-def p_expression_s(t):
+def p_expression_s(args):
     """ expression_s : element
 	| expression_s psign element"""
-    if len(t) == 2:
-        t[0] = t[1]
+    if len(args) == 2:
+        args[0] = args[1]
     else:
-        t[0] = Node('op', t[2], t[1], t[3])
+        args[0] = Node('op', args[2], args[1], args[3])
 
 
-def p_and_or(t):
+def p_and_or(args):
     """ and_or : AND
 	| OR """
-    t[0] = Node('and_or', t[1])
+    args[0] = Node('and_or', args[1])
 
 
-def p_psign(t):
+def p_psign(args):
     """psign : TIMES
 	| DIV"""
-    t[0] = Node('sign', t[1])
+    args[0] = Node('sign', args[1])
 
 
-def p_sign(t):
+def p_sign(args):
     """sign : PLUS
 	| MINUS
 	| EQ
@@ -270,10 +266,10 @@ def p_sign(t):
 	| GT
 	| GE
 	"""
-    t[0] = Node('sign', t[1])
+    args[0] = Node('sign', args[1])
 
 
-def p_element(t):
+def p_element(args):
     """element : identifier
 	| integer
 	| string
@@ -281,36 +277,36 @@ def p_element(t):
 	| LPAREN expression RPAREN
 	| NOT element
 	"""
-    if len(t) == 2:
-        t[0] = Node("element", t[1])
-    elif len(t) == 3:
+    if len(args) == 2:
+        args[0] = Node("element", args[1])
+    elif len(args) == 3:
         # not e
-        t[0] = Node('not', t[2])
+        args[0] = Node('not', args[2])
     else:
         # ( e )
-        t[0] = Node('element', t[2])
+        args[0] = Node('element', args[2])
 
 
-def p_identifier(t):
+def p_identifier(args):
     """ identifier : ID """
-    t[0] = Node('identifier', str(t[1]).lower())
+    args[0] = Node('identifier', str(args[1]).lower())
 
 
-def p_integer(t):
+def p_integer(args):
     """ integer : ICONST """
-    t[0] = Node('integer', t[1])
+    args[0] = Node('integer', args[1])
 
 
-def p_string(t):
+def p_string(args):
     """ string : SCONST """
-    t[0] = Node('string', t[1])
+    args[0] = Node('string', args[1])
 
 
-def p_char(t):
+def p_char(args):
     """ char : CCONST """
-    t[0] = Node('char', t[1])
+    args[0] = Node('char', args[1])
 
 
-def p_error(t):
+def p_error(args):
     print("Syntax error in input, in line %d:" % t.lineno, t)
     sys.exit()
